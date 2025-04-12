@@ -1,5 +1,24 @@
 import React from "react";
 
+import Bio from "./_features/bio";
+import Skills from "./_features/skills";
+
+import { Header } from "./_components/Header";
+import { Navigation } from "./_components/Navigation";
+
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <div className="p-4 pb-0 flex flex-col min-h-screen">
+        <Header />
+        <div className="p-[clamp(1rem,8vw,2rem)] pb-0 flex-1 flex flex-col gap-4">
+          <Navigation />
+          <Bio className="flex-1 h-full" />
+        </div>
+      </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <Skills />
+      </div>
+    </>
+  );
 }
