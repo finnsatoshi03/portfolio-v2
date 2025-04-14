@@ -9,7 +9,7 @@ const jetBrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600", "700"],
 });
 
-type Developer = "M3RK" | "You";
+type Developer = "M3RK" | "Ego";
 
 interface EditingState {
   line: number | null;
@@ -48,19 +48,19 @@ export const CollaborativeCoding: React.FC = () => {
     Record<Developer, number | null>
   >({
     M3RK: null,
-    You: null,
+    Ego: null,
   });
   const [editing, setEditing] = useState<Record<Developer, EditingState>>({
     M3RK: { line: null, text: "", complete: false },
-    You: { line: null, text: "", complete: false },
+    Ego: { line: null, text: "", complete: false },
   });
   const [actionLabels, setActionLabels] = useState<Record<Developer, string>>({
     M3RK: "",
-    You: "",
+    Ego: "",
   });
   const [cursors, setCursors] = useState<Record<Developer, CursorPosition>>({
     M3RK: { line: null, position: 0 },
-    You: { line: null, position: 0 },
+    Ego: { line: null, position: 0 },
   });
   const [suggestions, setSuggestions] = useState<SuggestionState>({
     active: false,
@@ -115,12 +115,12 @@ export const CollaborativeCoding: React.FC = () => {
         }));
         setActionLabels((prev) => ({ ...prev, M3RK: "Reading" }));
 
-        // You browsing the bottom part
+        // Ego browsing the bottom part
         setCursors((prev) => ({
           ...prev,
-          You: { line: 8, position: 5 },
+          Ego: { line: 8, position: 5 },
         }));
-        setActionLabels((prev) => ({ ...prev, You: "Reading" }));
+        setActionLabels((prev) => ({ ...prev, Ego: "Reading" }));
 
         setTimeout(() => {
           // M3RK moves cursor
@@ -130,13 +130,13 @@ export const CollaborativeCoding: React.FC = () => {
             });
           });
 
-          // You moves to return statement
-          animateCursor("You", 8, 12, () => {
+          // Ego moves to return statement
+          animateCursor("Ego", 8, 12, () => {
             setCurrentStep(1);
           });
         }, 1000);
       },
-      // Step 1: M3RK finds the TODO and highlights it, You starts editing return
+      // Step 1: M3RK finds the TODO and highlights it, Ego starts editing return
       () => {
         // M3RK highlights TODO
         setHighlightedLines((prev) => ({ ...prev, M3RK: 6 }));
@@ -144,22 +144,22 @@ export const CollaborativeCoding: React.FC = () => {
         setCursors((prev) => ({ ...prev, M3RK: { line: 6, position: 0 } }));
         scrollToLine(6);
 
-        // You starts editing return statement
+        // Ego starts editing return statement
         setEditing((prev) => ({
           ...prev,
-          You: { line: 8, text: "  return total;", complete: false },
+          Ego: { line: 8, text: "  return total;", complete: false },
         }));
-        setCursors((prev) => ({ ...prev, You: { line: 8, position: 12 } }));
-        setActionLabels((prev) => ({ ...prev, You: "Editing" }));
+        setCursors((prev) => ({ ...prev, Ego: { line: 8, position: 12 } }));
+        setActionLabels((prev) => ({ ...prev, Ego: "Editing" }));
         scrollToLine(8);
 
         setTimeout(() => {
-          // You modifies return statement
-          simulateDeleting("You", 8, "  return total;", "  return ", () => {
+          // Ego modifies return statement
+          simulateDeleting("Ego", 8, "  return total;", "  return ", () => {
             typeCode(
               "  return total * 0.9; // Apply 10% discount",
               8,
-              "You",
+              "Ego",
               () => {
                 addChangedLine(8);
                 setCurrentStep(2);
@@ -169,7 +169,7 @@ export const CollaborativeCoding: React.FC = () => {
           });
         }, 1500);
       },
-      // Step 2: M3RK adds comment while You reviews their work
+      // Step 2: M3RK adds comment while Ego reviews their work
       () => {
         // M3RK starts adding comment at TODO line
         setHighlightedLines((prev) => ({ ...prev, M3RK: null }));
@@ -185,14 +185,14 @@ export const CollaborativeCoding: React.FC = () => {
         setActionLabels((prev) => ({ ...prev, M3RK: "Editing" }));
         scrollToLine(6);
 
-        // You reviews their change
+        // Ego reviews their change
         setEditing((prev) => ({
           ...prev,
-          You: { line: null, text: "", complete: false },
+          Ego: { line: null, text: "", complete: false },
         }));
-        setHighlightedLines((prev) => ({ ...prev, You: 8 }));
-        setCursors((prev) => ({ ...prev, You: { line: 8, position: 0 } }));
-        setActionLabels((prev) => ({ ...prev, You: "Reviewing" }));
+        setHighlightedLines((prev) => ({ ...prev, Ego: 8 }));
+        setCursors((prev) => ({ ...prev, Ego: { line: 8, position: 0 } }));
+        setActionLabels((prev) => ({ ...prev, Ego: "Reviewing" }));
         scrollToLine(8);
 
         setTimeout(() => {
@@ -244,34 +244,34 @@ export const CollaborativeCoding: React.FC = () => {
             }
           );
 
-          // You moves cursor in their line and actively reviews with highlighting
+          // Ego moves cursor in their line and actively reviews with highlighting
           setTimeout(() => {
-            animateCursor("You", 8, 31, () => {
-              // Enhanced "You reviewing" with more visible action
-              setHighlightedLines((prev) => ({ ...prev, You: null }));
+            animateCursor("Ego", 8, 31, () => {
+              // Enhanced "Ego reviewing" with more visible action
+              setHighlightedLines((prev) => ({ ...prev, Ego: null }));
               setTimeout(() => {
-                setHighlightedLines((prev) => ({ ...prev, You: 8 }));
+                setHighlightedLines((prev) => ({ ...prev, Ego: 8 }));
                 setTimeout(() => {
-                  animateCursor("You", 8, 18);
+                  animateCursor("Ego", 8, 18);
                 }, 300);
               }, 300);
             });
           }, 800);
         }, 1500);
       },
-      // Step 3: Both working simultaneously - M3RK adding discount map, You fixing return statement
+      // Step 3: Both working simultaneously - M3RK adding discount map, Ego fixing return statement
       () => {
-        // You starts editing return statement again
-        setHighlightedLines((prev) => ({ ...prev, You: null }));
+        // Ego starts editing return statement again
+        setHighlightedLines((prev) => ({ ...prev, Ego: null }));
         setEditing((prev) => ({
           ...prev,
-          You: {
+          Ego: {
             line: 8,
             text: "  return total * 0.9; // Apply 10% discount",
             complete: false,
           },
         }));
-        setCursors((prev) => ({ ...prev, You: { line: 8, position: 18 } }));
+        setCursors((prev) => ({ ...prev, Ego: { line: 8, position: 18 } }));
         scrollToLine(8);
 
         // M3RK continues filling in discount object
@@ -313,10 +313,10 @@ export const CollaborativeCoding: React.FC = () => {
                       }));
                       scrollToLine(14);
 
-                      // You is already editing the return statement
+                      // Ego is already editing the return statement
                       setEditing((prev) => ({
                         ...prev,
-                        You: {
+                        Ego: {
                           line: 14,
                           text: "  return total * (1 - discount);",
                           complete: false,
@@ -324,11 +324,11 @@ export const CollaborativeCoding: React.FC = () => {
                       }));
                       setCursors((prev) => ({
                         ...prev,
-                        You: { line: 14, position: 30 },
+                        Ego: { line: 14, position: 30 },
                       }));
                       setActionLabels((prev) => ({
                         ...prev,
-                        You: "Editing return",
+                        Ego: "Editing return",
                       }));
 
                       // Signal overlap issue
@@ -336,9 +336,9 @@ export const CollaborativeCoding: React.FC = () => {
                         setActionLabels((prev) => ({
                           ...prev,
                           M3RK: "Merge conflict!",
-                          You: "Merge conflict!",
+                          Ego: "Merge conflict!",
                         }));
-                        setHighlightedLines({ M3RK: 14, You: 14 });
+                        setHighlightedLines({ M3RK: 14, Ego: 14 });
 
                         setTimeout(() => {
                           setCurrentStep(4);
@@ -351,9 +351,9 @@ export const CollaborativeCoding: React.FC = () => {
             });
           });
 
-          // You modifies return statement to be more dynamic
+          // Ego modifies return statement to be more dynamic
           simulateDeleting(
-            "You",
+            "Ego",
             8,
             "  return total * 0.9; // Apply 10% discount",
             "  return total * ",
@@ -361,7 +361,7 @@ export const CollaborativeCoding: React.FC = () => {
               typeCode(
                 "  return total * (1 - discount);",
                 8,
-                "You",
+                "Ego",
                 () => {
                   addChangedLine(8);
                 },
@@ -374,10 +374,10 @@ export const CollaborativeCoding: React.FC = () => {
       // Step 4: Resolving merge conflict - CLEANER VERSION
       () => {
         // Clear previous states first
-        setHighlightedLines({ M3RK: null, You: null });
+        setHighlightedLines({ M3RK: null, Ego: null });
         setEditing({
           M3RK: { line: null, text: "", complete: false },
-          You: { line: null, text: "", complete: false },
+          Ego: { line: null, text: "", complete: false },
         });
 
         // Update the code to show the conflict more clearly
@@ -385,7 +385,7 @@ export const CollaborativeCoding: React.FC = () => {
         updatedLines[14] = "  // CONFLICT: Both developers edited this line";
         updatedLines.splice(15, 0, "  // M3RK's version:");
         updatedLines.splice(16, 0, "  return total * (1 - discount);");
-        updatedLines.splice(17, 0, "  // Your version:");
+        updatedLines.splice(17, 0, "  // Egor version:");
         updatedLines.splice(18, 0, "  return total * (1 - discount);");
         setCodeLines(updatedLines);
 
@@ -399,16 +399,16 @@ export const CollaborativeCoding: React.FC = () => {
           // Set the conflict indicators
           setActionLabels({
             M3RK: "Merge conflict detected",
-            You: "Merge conflict detected",
+            Ego: "Merge conflict detected",
           });
 
           // Highlight the conflict lines with a clearer indication
-          setHighlightedLines({ M3RK: 16, You: 18 });
+          setHighlightedLines({ M3RK: 16, Ego: 18 });
 
           // Show developers examining the conflict
           setCursors({
             M3RK: { line: 16, position: 10 },
-            You: { line: 18, position: 10 },
+            Ego: { line: 18, position: 10 },
           });
 
           // Simpler conflict resolution sequence
@@ -416,19 +416,19 @@ export const CollaborativeCoding: React.FC = () => {
             // Show discussion starting
             setActionLabels({
               M3RK: "Our changes are identical",
-              You: "We made the same change",
+              Ego: "We made the same change",
             });
 
             // Move cursors to show examination
             animateCursor("M3RK", 16, 15, () => {
-              animateCursor("You", 18, 15);
+              animateCursor("Ego", 18, 15);
             });
 
             setTimeout(() => {
               // Resolution discussion
               setActionLabels({
                 M3RK: "Let's use this approach",
-                You: "Agreed, it looks good",
+                Ego: "Agreed, it looks good",
               });
 
               setTimeout(() => {
@@ -455,18 +455,18 @@ export const CollaborativeCoding: React.FC = () => {
                 setCodeLines(resolvedLines);
 
                 // Highlight the resolved line
-                setHighlightedLines({ M3RK: null, You: 14 });
+                setHighlightedLines({ M3RK: null, Ego: 14 });
 
                 // Position cursors near the resolved line
                 setCursors({
                   M3RK: { line: 14, position: 15 },
-                  You: { line: 14, position: 30 },
+                  Ego: { line: 14, position: 30 },
                 });
 
                 // Show resolution message
                 setActionLabels({
                   M3RK: "Conflict resolved",
-                  You: "Changes approved",
+                  Ego: "Changes approved",
                 });
 
                 // Update changed lines tracking
@@ -494,9 +494,9 @@ export const CollaborativeCoding: React.FC = () => {
         setActionLabels((prev) => ({ ...prev, M3RK: "Reviewing" }));
         scrollToLine(7);
 
-        // You reviews the return statement
-        setCursors((prev) => ({ ...prev, You: { line: 8, position: 0 } }));
-        setActionLabels((prev) => ({ ...prev, You: "Verifying" }));
+        // Ego reviews the return statement
+        setCursors((prev) => ({ ...prev, Ego: { line: 8, position: 0 } }));
+        setActionLabels((prev) => ({ ...prev, Ego: "Verifying" }));
         setTimeout(() => {
           scrollToLine(8);
         }, 300);
@@ -515,18 +515,18 @@ export const CollaborativeCoding: React.FC = () => {
             });
           });
 
-          // You reviews return statement with enhanced visibility
-          setHighlightedLines((prev) => ({ ...prev, You: 8 }));
+          // Ego reviews return statement with enhanced visibility
+          setHighlightedLines((prev) => ({ ...prev, Ego: 8 }));
           setTimeout(() => {
             // Toggle highlight for better visibility
-            setHighlightedLines((prev) => ({ ...prev, You: null }));
+            setHighlightedLines((prev) => ({ ...prev, Ego: null }));
             setTimeout(() => {
-              setHighlightedLines((prev) => ({ ...prev, You: 8 }));
+              setHighlightedLines((prev) => ({ ...prev, Ego: 8 }));
               setTimeout(() => {
-                setHighlightedLines((prev) => ({ ...prev, You: null }));
+                setHighlightedLines((prev) => ({ ...prev, Ego: null }));
                 setActionLabels({
                   M3RK: "Ready to commit",
-                  You: "Approved changes",
+                  Ego: "Approved changes",
                 });
 
                 setTimeout(() => {
@@ -539,19 +539,19 @@ export const CollaborativeCoding: React.FC = () => {
       },
       // Step 6: Both approve, reset and start over
       () => {
-        setHighlightedLines({ M3RK: null, You: null });
+        setHighlightedLines({ M3RK: null, Ego: null });
         setCursors({
           M3RK: { line: null, position: 0 },
-          You: { line: null, position: 0 },
+          Ego: { line: null, position: 0 },
         });
         setActionLabels({
           M3RK: "Committed changes",
-          You: "Committed changes",
+          Ego: "Committed changes",
         });
 
         setTimeout(() => {
           // Reset state for next iteration
-          setActionLabels({ M3RK: "", You: "" });
+          setActionLabels({ M3RK: "", Ego: "" });
           setChangedLines([]);
           setTimeout(() => {
             setCodeLines([
@@ -764,16 +764,16 @@ export const CollaborativeCoding: React.FC = () => {
             </div>
             <div className="flex items-center">
               <div className="w-2 h-2 rounded-full mr-1.5 bg-purple-500"></div>
-              <span className="text-xs text-gray-400">You</span>
-              {actionLabels.You && (
+              <span className="text-xs text-gray-400">Ego</span>
+              {actionLabels.Ego && (
                 <span
                   className={`text-xs truncate ${
-                    actionLabels.You.includes("conflict")
+                    actionLabels.Ego.includes("conflict")
                       ? "text-yellow-500"
                       : "text-gray-500"
                   } ml-1`}
                 >
-                  {actionLabels.You}
+                  {actionLabels.Ego}
                 </span>
               )}
             </div>
@@ -793,11 +793,11 @@ export const CollaborativeCoding: React.FC = () => {
                   className={`
                     ${
                       highlightedLines.M3RK === index &&
-                      highlightedLines.You === index
+                      highlightedLines.Ego === index
                         ? `bg-yellow-500/10 border-l-2 border-yellow-500`
                         : highlightedLines.M3RK === index
                         ? `bg-blue-500/10 border-l-2 border-blue-500`
-                        : highlightedLines.You === index
+                        : highlightedLines.Ego === index
                         ? `bg-purple-500/10 border-l-2 border-purple-500`
                         : "border-l-2 border-transparent"
                     }
@@ -807,7 +807,7 @@ export const CollaborativeCoding: React.FC = () => {
                         : ""
                     }
                     ${
-                      editing.You.line === index
+                      editing.Ego.line === index
                         ? `border-l-2 border-purple-500`
                         : ""
                     }
@@ -850,8 +850,8 @@ export const CollaborativeCoding: React.FC = () => {
                         >
                           {editing.M3RK.line === index
                             ? editing.M3RK.text
-                            : editing.You.line === index
-                            ? editing.You.text
+                            : editing.Ego.line === index
+                            ? editing.Ego.text
                             : line}
                         </span>
 
@@ -873,17 +873,17 @@ export const CollaborativeCoding: React.FC = () => {
                           </span>
                         )}
 
-                        {/* You cursor */}
-                        {cursors.You.line === index && (
+                        {/* Ego cursor */}
+                        {cursors.Ego.line === index && (
                           <span
                             className="absolute top-0 inline-flex flex-col items-center"
                             style={{
-                              left: `${cursors.You.position * 0.6}em`,
+                              left: `${cursors.Ego.position * 0.6}em`,
                               height: "100%",
                             }}
                           >
                             <span className="absolute top-0 transform -translate-y-full text-purple-100 text-xs bg-purple-500 px-1.5 py-0.5 rounded-sm whitespace-nowrap z-10 font-medium">
-                              You {actionLabels.You}
+                              Ego {actionLabels.Ego}
                             </span>
                             <span className="animate-pulse text-purple-500 mx-0.5">
                               |
