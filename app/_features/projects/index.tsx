@@ -1,5 +1,6 @@
 import React from "react";
 import { ProjectCard } from "./_components/ProjectCard";
+import { DevSkills } from "./_components/DevSkills";
 
 export default function Projects() {
   const selectedProjects = [
@@ -44,10 +45,11 @@ export default function Projects() {
   return (
     <div className="w-full space-y-2">
       <h2>Selected Projects</h2>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {selectedProjects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
+        <DevSkills />
       </div>
     </div>
   );
