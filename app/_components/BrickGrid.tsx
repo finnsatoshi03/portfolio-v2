@@ -20,14 +20,19 @@ const BrickGrid = ({ className }: { className?: string }) => {
     if (!row1Ref.current || !row2Ref.current || !row3Ref.current) return;
 
     // Set initial state
-    gsap.set([row1Ref.current, row2Ref.current, row3Ref.current], {
+    gsap.set([row1Ref.current, row3Ref.current], {
       opacity: 0,
+      x: 0,
+    });
+    gsap.set(row2Ref.current, {
+      opacity: 0,
+      x: "-6%",
     });
 
-    // Row 1 animation - scroll to right
+    // Row 1 animations
+    // Opacity animation
     gsap.to(row1Ref.current, {
       opacity: 1,
-      x: "-3%",
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
@@ -39,10 +44,24 @@ const BrickGrid = ({ className }: { className?: string }) => {
       },
     });
 
-    // Row 2 animation - scroll to left
+    // Horizontal movement animation
+    gsap.to(row1Ref.current, {
+      x: "-3%",
+      duration: 1,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: ".skills-section",
+        start: "bottom-=150 bottom-=100",
+        end: "bottom+=50% center",
+        scrub: 2.5,
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Row 2 animations
+    // Opacity animation
     gsap.to(row2Ref.current, {
       opacity: 1,
-      x: "-6%",
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
@@ -54,16 +73,44 @@ const BrickGrid = ({ className }: { className?: string }) => {
       },
     });
 
-    // Row 3 animation - scroll to right
+    // Horizontal movement animation
+    gsap.to(row2Ref.current, {
+      x: "0%",
+      duration: 1,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: ".skills-section",
+        start: "bottom-=150 bottom-=100",
+        end: "bottom+=50% center",
+        scrub: 2.5,
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Row 3 animations
+    // Opacity animation
     gsap.to(row3Ref.current, {
       opacity: 1,
-      x: "-3%",
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
         trigger: ".skills-section",
         start: "bottom-=150 bottom-=100",
         end: "center center",
+        scrub: 2.5,
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Horizontal movement animation
+    gsap.to(row3Ref.current, {
+      x: "-3%",
+      duration: 1,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: ".skills-section",
+        start: "bottom-=150 bottom-=100",
+        end: "bottom+=50% center",
         scrub: 2.5,
         toggleActions: "play none none reverse",
       },

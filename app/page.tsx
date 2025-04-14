@@ -2,6 +2,10 @@ import React from "react";
 
 import Bio from "./_features/bio";
 import Skills from "./_features/skills";
+import Projects from "./_features/projects";
+
+import { ProjectsHeader } from "./_features/projects/_components/ProjectsHeader";
+
 import LightEffect from "./_components/LightEffect";
 import SkillsShadow from "./_components/SkillsShadow";
 import BrickGrid from "./_components/BrickGrid";
@@ -24,6 +28,10 @@ export default function Home() {
         <SkillsShadow className="z-10" />
         <LightEffect className="z-20" />
         <Skills className="z-30" />
+      </div>
+      <div className="projects-section space-y-8 h-screen flex flex-col relative px-4 md:p-8">
+        <ProjectsHeader />
+        <Projects />
       </div>
     </>
   );
