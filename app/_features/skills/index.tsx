@@ -5,6 +5,8 @@ import localFont from "next/font/local";
 import { Didact_Gothic } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { cn } from "../../_lib/utils";
+
 const vanchrome = localFont({
   src: "./../../_assets/fonts/Vanchrome Front.otf",
   weight: "900",
@@ -16,7 +18,7 @@ const didactGothic = Didact_Gothic({
   subsets: ["latin"],
 });
 
-export default function Skills() {
+export default function Skills({ className }: { className?: string }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const skills = ["Frontend Dev", "UI/UX Design", "Graphic Design"];
@@ -29,9 +31,9 @@ export default function Skills() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className={cn("relative w-full overflow-hidden", className)}>
       <div
-        className={`${vanchrome.className} text-center cursor-pointer uppercase text-[clamp(2rem,8vw,9.75rem)] tracking-[-0.05em] leading-[0.8]`}
+        className={`${vanchrome.className} text-center cursor-pointer uppercase text-[clamp(3rem,8vw,9.75rem)] tracking-[-0.05em] leading-[0.8] relative z-10`}
       >
         <ul className="relative">
           {skills.map((skill, index) => (
