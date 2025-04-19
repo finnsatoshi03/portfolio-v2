@@ -33,23 +33,21 @@ export default function Skills({ className }: { className?: string }) {
   return (
     <div className={cn("relative w-full overflow-hidden", className)}>
       <div
-        className={`${vanchrome.className} text-center cursor-pointer uppercase text-[clamp(3rem,8vw,9.75rem)] tracking-[-0.05em] leading-[0.8] relative z-10`}
+        className={`${vanchrome.className} text-center uppercase text-[clamp(3rem,8vw,9.75rem)] tracking-[-0.05em] leading-[0.8] relative z-10`}
       >
+        <h2
+          className={`${didactGothic.className} text-white text-base mb-8 tracking-normal leading-normal`}
+        >
+          I can help you with
+        </h2>
         <ul className="relative">
           {skills.map((skill, index) => (
-            <motion.li
-              key={skill}
-              className="relative"
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
+            <li key={skill} className="relative">
               {/* Skill text with hover effects */}
               <motion.div
-                className={`relative z-10 ${
-                  hoveredIndex !== null && hoveredIndex !== index
-                    ? "opacity-70"
-                    : ""
-                }`}
+                className="relative z-10 inline-block cursor-pointer"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
                 animate={{
                   opacity: hoveredIndex === index ? 0.5 : 1,
                   scale: hoveredIndex === index ? 0.95 : 1,
@@ -100,7 +98,7 @@ export default function Skills({ className }: { className?: string }) {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.li>
+            </li>
           ))}
         </ul>
       </div>
