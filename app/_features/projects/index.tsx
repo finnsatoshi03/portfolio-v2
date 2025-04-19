@@ -2,10 +2,10 @@ import React from "react";
 import { GeneralCard } from "@/app/_components/GeneralCard";
 import { DynamicImage } from "@/app/_components/DynamicImage";
 
-import { LayoutCarousel } from "./_components/LayoutCarousel";
 import { ProjectCard } from "./_components/ProjectCard";
 import { DevSkills } from "./_components/DevSkills";
 import { CollaborativeCoding } from "./_components/CollaborativeCoding";
+import { InfiniteLoopingMasonry } from "./_components/InfiniteLoopingMasonry";
 
 export default function Projects() {
   const selectedProjects = [
@@ -66,7 +66,7 @@ export default function Projects() {
           description="Translating complex Figma designs into pixel-perfect, responsive layouts with precision and efficiency."
           className="row-span-2 lg:col-start-4 flex flex-col overflow-hidden min-h-[600px] md:min-h-full"
         >
-          <LayoutCarousel />
+          <InfiniteLoopingMasonry />
         </GeneralCard>
 
         <GeneralCard
