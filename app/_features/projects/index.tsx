@@ -1,11 +1,11 @@
 import React from "react";
 import { GeneralCard } from "@/app/_components/GeneralCard";
-import { DynamicImage } from "@/app/_components/DynamicImage";
 
 import { ProjectCard } from "./_components/ProjectCard";
 import { DevSkills } from "./_components/DevSkills";
 import { CollaborativeCoding } from "./_components/CollaborativeCoding";
 import { InfiniteLoopingMasonry } from "./_components/InfiniteLoopingMasonry";
+import { CodeGlobe } from "./_components/CodeGlobal";
 
 export default function Projects() {
   const selectedProjects = [
@@ -71,15 +71,12 @@ export default function Projects() {
 
         <GeneralCard
           title="No Bloat, Just Results"
-          description="Focused on building exactly what’s needed—efficient, fast, and scalable."
+          description="Focused on building exactly what's needed—efficient, fast, and scalable."
           className="flex flex-col"
         >
-          <DynamicImage
-            src=""
-            alt="No Bloat, Just Results"
-            className="min-h-[250px] flex-1"
-          />
+          <CodeGlobe className="flex-1 min-h-[250px] aspect-square" />
         </GeneralCard>
+
         <GeneralCard
           title="Development Expertise"
           description="Building fast, responsive, and scalable web experiences with clean code and seamless integrations."
