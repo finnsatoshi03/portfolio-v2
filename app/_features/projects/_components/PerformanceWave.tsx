@@ -2,10 +2,17 @@
 
 import { motion } from "framer-motion";
 import { useMemo } from "react";
+import { useAnimationControl } from "@/app/_hooks/useAnimationControl";
 
 export const PerformanceWave = () => {
   const columns = 5;
   const rows = 3;
+
+  // Use animation control hook
+  const { isAnimating, ref } = useAnimationControl<HTMLDivElement>({
+    threshold: 0.2,
+    deactivationDelay: 100,
+  });
 
   // Memoize gradient pattern calculations
   const arrows = useMemo(() => {
@@ -19,7 +26,10 @@ export const PerformanceWave = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-full overflow-hidden rounded-xl">
+    <div
+      className="relative w-full h-full overflow-hidden rounded-xl"
+      ref={ref}
+    >
       {arrows.map((arrow) => (
         <motion.div
           key={arrow.id}
@@ -29,16 +39,24 @@ export const PerformanceWave = () => {
             top: `${arrow.y}%`,
           }}
           initial={{ y: 0, opacity: 0 }}
-          animate={{
-            y: [-20, -100],
-            opacity: [0, 0.8, 0],
-          }}
-          transition={{
-            duration: 2.5 + arrow.delay,
-            repeat: Infinity,
-            ease: "linear",
-            delay: arrow.delay,
-          }}
+          animate={
+            isAnimating
+              ? {
+                  y: [-20, -100],
+                  opacity: [0, 0.8, 0],
+                }
+              : { y: 0, opacity: 0 }
+          }
+          transition={
+            isAnimating
+              ? {
+                  duration: 2.5 + arrow.delay,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: arrow.delay,
+                }
+              : { duration: 0 }
+          }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,14 +84,22 @@ export const PerformanceWave = () => {
         <div className="relative z-10 text-center">
           <motion.div
             className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent"
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%"],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            animate={
+              isAnimating
+                ? {
+                    backgroundPosition: ["0% 50%", "100% 50%"],
+                  }
+                : { backgroundPosition: "0% 50%" }
+            }
+            transition={
+              isAnimating
+                ? {
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }
+                : { duration: 0 }
+            }
             style={{
               backgroundSize: "200% 200%",
             }}

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { useAnimationControl } from "@/app/_hooks/useAnimationControl";
 
 interface GridItem {
   id: number;
@@ -41,7 +42,12 @@ const STYLE_DURATION = 3000;
 export function MorphingGrid() {
   const [styleIndex, setStyleIndex] = useState(0);
   const [items, setItems] = useState<GridItem[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Use our animation control hook
+  const { isAnimating, ref } = useAnimationControl<HTMLDivElement>({
+    threshold: 0.1,
+    deactivationDelay: 100, // Small delay before stopping animation when not visible
+  });
 
   const generateItems = useCallback(() => {
     const style = GRID_STYLES[styleIndex];
@@ -54,14 +60,20 @@ export function MorphingGrid() {
   }, [styleIndex]);
 
   useEffect(() => {
-    setItems(generateItems());
+    // Only update items when animation is active
+    if (isAnimating) {
+      setItems(generateItems());
+    }
 
-    const interval = setInterval(() => {
-      setStyleIndex((prev) => (prev + 1) % GRID_STYLES.length);
-    }, STYLE_DURATION);
+    // Only set up interval when animation is active
+    if (isAnimating) {
+      const interval = setInterval(() => {
+        setStyleIndex((prev) => (prev + 1) % GRID_STYLES.length);
+      }, STYLE_DURATION);
 
-    return () => clearInterval(interval);
-  }, [styleIndex, generateItems]);
+      return () => clearInterval(interval);
+    }
+  }, [styleIndex, generateItems, isAnimating]);
 
   const columns = useMemo(() => {
     const columnsArray = Array(COLUMNS)
@@ -78,7 +90,7 @@ export function MorphingGrid() {
 
   return (
     <div
-      ref={containerRef}
+      ref={ref}
       className="relative h-full w-full overflow-hidden bg-[#0a0a0a]"
     >
       <div className="h-full w-full p-4">

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { JetBrains_Mono } from "next/font/google";
 import { GitBranch, GitMerge, GitPullRequest, WrapText } from "lucide-react";
+import { useAnimationControl } from "@/app/_hooks/useAnimationControl";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -30,6 +31,13 @@ interface SuggestionState {
 }
 
 export const CollaborativeCoding: React.FC = () => {
+  // Use animation control hook
+  const { isAnimating, ref: animationRef } =
+    useAnimationControl<HTMLDivElement>({
+      threshold: 0.3,
+      deactivationDelay: 200,
+    });
+
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [wordWrap, setWordWrap] = useState<boolean>(false);
   const [codeLines, setCodeLines] = useState<string[]>([
@@ -105,6 +113,9 @@ export const CollaborativeCoding: React.FC = () => {
 
   // Animation sequence
   useEffect(() => {
+    // Don't run animations if component is not visible or window is not focused
+    if (!isAnimating) return;
+
     const animationSteps: (() => void)[] = [
       // Step 0: Initial browsing
       () => {
@@ -573,7 +584,7 @@ export const CollaborativeCoding: React.FC = () => {
     ];
 
     animationSteps[currentStep]();
-  }, [currentStep]);
+  }, [currentStep, isAnimating]);
 
   // Add line to change history
   const addChangedLine = (...lineNums: number[]): void => {
@@ -712,7 +723,7 @@ export const CollaborativeCoding: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full space-y-2">
+    <div className="flex flex-col h-full space-y-2" ref={animationRef}>
       <div className="flex items-center justify-between mb-2">
         {/* Controls */}
         <div className="flex space-x-2">

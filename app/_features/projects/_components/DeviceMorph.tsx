@@ -2,10 +2,17 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useAnimationControl } from "@/app/_hooks/useAnimationControl";
 
 export const DeviceMorph = ({ className }: { className?: string }) => {
   const [currentDevice, setCurrentDevice] = useState(0);
   const devices = ["desktop", "tablet", "mobile"] as const;
+
+  // Use animation control hook
+  const { isAnimating, ref } = useAnimationControl<HTMLDivElement>({
+    threshold: 0.1,
+    deactivationDelay: 200,
+  });
 
   // Memoized device dimensions
   const deviceDimensions = useCallback(
@@ -38,18 +45,21 @@ export const DeviceMorph = ({ className }: { className?: string }) => {
   };
 
   useEffect(() => {
+    // Only run animation when component is visible and window is focused
+    if (!isAnimating) return;
+
     const interval = setInterval(() => {
       setCurrentDevice((prev) => (prev + 1) % devices.length);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [devices.length]);
+  }, [devices.length, isAnimating]);
 
   const currentDeviceType = devices[currentDevice];
   const dimensions = deviceDimensions()[currentDeviceType];
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} ref={ref}>
       <motion.div
         className="absolute top-1/2 left-1/2 border shadow-lg"
         style={{

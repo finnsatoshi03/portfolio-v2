@@ -20,10 +20,17 @@ import {
   TableRow,
   TableCell,
 } from "@/app/_components/ui/table";
+import { useAnimationControl } from "@/app/_hooks/useAnimationControl";
 
 export const ComponentShowcase = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Use our animation control hook
+  const { isAnimating, ref } = useAnimationControl<HTMLDivElement>({
+    threshold: 0.1,
+    deactivationDelay: 300,
+  });
 
   // Memoize components to prevent unnecessary re-renders
   const components = useMemo(
@@ -120,14 +127,16 @@ export const ComponentShowcase = () => {
   }, [components.length]);
 
   useEffect(() => {
-    if (!isHovered) {
-      const interval = setInterval(updateIndex, 2500);
-      return () => clearInterval(interval);
-    }
-  }, [isHovered, updateIndex]);
+    // Only animate when visible and not being hovered
+    if (!isAnimating || isHovered) return;
+
+    const interval = setInterval(updateIndex, 2500);
+    return () => clearInterval(interval);
+  }, [isHovered, updateIndex, isAnimating]);
 
   return (
     <motion.div
+      ref={ref}
       className="relative w-full h-full bg-background/80 rounded-xl p-8"
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
