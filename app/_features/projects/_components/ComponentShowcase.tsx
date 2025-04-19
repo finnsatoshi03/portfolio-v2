@@ -5,11 +5,21 @@ import { motion } from "framer-motion";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardHeader, CardContent } from "@/app/_components/ui/card";
 import { Input } from "@/app/_components/ui/input";
+import { Skeleton } from "@/app/_components/ui/skeleton";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/app/_components/ui/popover";
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/app/_components/ui/tabs";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "@/app/_components/ui/table";
 
 export const ComponentShowcase = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -21,12 +31,9 @@ export const ComponentShowcase = () => {
       {
         name: "Button",
         element: (
-          <Popover>
-            <PopoverTrigger>
-              <Button variant="secondary">Click Me</Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-full">Button Component</PopoverContent>
-          </Popover>
+          <Button variant="secondary" className="w-full">
+            Click Me
+          </Button>
         ),
       },
       {
@@ -41,6 +48,59 @@ export const ComponentShowcase = () => {
       {
         name: "Input",
         element: <Input placeholder="Type something..." className="w-full" />,
+      },
+      {
+        name: "Skeleton",
+        element: (
+          <div className="space-y-2 w-full">
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+        ),
+      },
+      {
+        name: "Tabs",
+        element: (
+          <Tabs defaultValue="tab1" className="w-full">
+            <TabsList>
+              <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+              <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+              <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+            </TabsList>
+            <TabsContent value="tab1">Tab 1 content goes here...</TabsContent>
+            <TabsContent value="tab2">Tab 2 content goes here...</TabsContent>
+            <TabsContent value="tab3">Tab 3 content goes here...</TabsContent>
+          </Tabs>
+        ),
+      },
+      {
+        name: "Table",
+        element: (
+          <div className="w-full border rounded-md overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Date</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Project Alpha</TableCell>
+                  <TableCell>Active</TableCell>
+                  <TableCell>Today</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Project Beta</TableCell>
+                  <TableCell>Pending</TableCell>
+                  <TableCell>Yesterday</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        ),
       },
     ],
     []
