@@ -1,15 +1,17 @@
 import React from "react";
+import Link from "next/link";
 import { GeneralCard } from "@/app/_components/GeneralCard";
 
 import { ProjectCard } from "./_components/ProjectCard";
 import { DevSkills } from "./_components/DevSkills";
 import { CollaborativeCoding } from "./_components/CollaborativeCoding";
 
-import { InfiniteLoopingMasonry } from "./_components/InfiniteLoopingMasonry";
+import { MorphingGrid } from "./_components/MorphingGrid";
 
 import { CodeGlobe } from "./_components/CodeGlobal";
 import { DeviceMorph } from "./_components/DeviceMorph";
 import { ComponentShowcase } from "./_components/ComponentShowcase";
+import { PerformanceWave } from "./_components/PerformanceWave";
 
 export default function Projects() {
   const selectedProjects = [
@@ -53,7 +55,12 @@ export default function Projects() {
 
   return (
     <div className="w-full space-y-2">
-      <h2>Selected Projects</h2>
+      <div className="flex justify-between items-center">
+        <h2>Selected Projects</h2>
+        <Link href="#" className="text-sm text-gray-500">
+          View All
+        </Link>
+      </div>
       <div className="flex flex-col h-full md:grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {selectedProjects.map((project) => (
           <ProjectCard key={project.id} project={project} />
@@ -68,9 +75,9 @@ export default function Projects() {
         <GeneralCard
           title="Layout"
           description="Translating complex Figma designs into pixel-perfect, responsive layouts with precision and efficiency."
-          className="row-span-2 lg:col-start-4 flex flex-col overflow-hidden min-h-[600px] md:min-h-full"
+          className="row-span-2 lg:col-start-4 flex flex-col overflow-hidden min-h-[600px] max-h-[600px] md:min-h-full"
         >
-          <InfiniteLoopingMasonry />
+          <MorphingGrid />
         </GeneralCard>
 
         <GeneralCard
@@ -106,7 +113,11 @@ export default function Projects() {
                 <ComponentShowcase />
               </div>
             </GeneralCard>
-            <GeneralCard title="Integration" isTitleOnBottom></GeneralCard>
+            <GeneralCard title="Performance" isTitleOnBottom>
+              <div className="relative w-full h-full min-h-[250px]">
+                <PerformanceWave />
+              </div>
+            </GeneralCard>
           </div>
         </GeneralCard>
       </div>
