@@ -4,8 +4,12 @@ import { GeneralCard } from "@/app/_components/GeneralCard";
 import { ProjectCard } from "./_components/ProjectCard";
 import { DevSkills } from "./_components/DevSkills";
 import { CollaborativeCoding } from "./_components/CollaborativeCoding";
+
 import { InfiniteLoopingMasonry } from "./_components/InfiniteLoopingMasonry";
+
 import { CodeGlobe } from "./_components/CodeGlobal";
+import { DeviceMorph } from "./_components/DeviceMorph";
+import { ComponentShowcase } from "./_components/ComponentShowcase";
 
 export default function Projects() {
   const selectedProjects = [
@@ -80,9 +84,30 @@ export default function Projects() {
         <GeneralCard
           title="Development Expertise"
           description="Building fast, responsive, and scalable web experiences with clean code and seamless integrations."
-          className="flex flex-col col-span-2"
+          className="flex flex-col col-span-2 gap-2"
         >
-          <></>
+          <div className="grid md:grid-cols-3 flex-1 gap-4">
+            <GeneralCard
+              title="Responsiveness"
+              isTitleOnBottom
+              className="h-full "
+            >
+              <div className="relative w-full min-h-[250px] h-full">
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  style={{ width: "100%", height: "30%" }}
+                >
+                  <DeviceMorph className="w-full h-full" />
+                </div>
+              </div>
+            </GeneralCard>
+            <GeneralCard title="Components" isTitleOnBottom>
+              <div className="relative w-full h-full min-h-[250px]">
+                <ComponentShowcase />
+              </div>
+            </GeneralCard>
+            <GeneralCard title="Integration" isTitleOnBottom></GeneralCard>
+          </div>
         </GeneralCard>
       </div>
     </div>

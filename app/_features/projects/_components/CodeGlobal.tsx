@@ -45,8 +45,7 @@ export function CodeGlobe({ className }: { className?: string }) {
     HOVER_SPEED: 0.005,
     NOISE_SPEED: 0.0003,
     COLOR_PALETTE: ["#00ff88", "#00ff00", "#00cc66", "#88ff00"],
-    CODE_CHARACTERS:
-      "0123456789{}()<>[];:/=+-,.*!?#@%^&|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    CODE_CHARACTERS: "01</>{}[]",
     REPULSION_FORCE: 0.8,
     LERP_SPEED: 0.1,
     SIZE_VARIATION: [4, 10],
