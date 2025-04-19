@@ -138,7 +138,7 @@ const BrickGrid = ({ className }: { className?: string }) => {
         {[...Array(10)].map((_, i) => (
           <div
             key={`row1-${i}`}
-            className="flex-1 h-full bg-gray-800/20 border border-gray-700/30 rounded-lg"
+            className="flex-1 h-full bg-gray-800/20 border min-w-[300px] border-gray-700/30 rounded-lg"
           />
         ))}
       </div>
@@ -148,7 +148,7 @@ const BrickGrid = ({ className }: { className?: string }) => {
         {[...Array(10)].map((_, i) => (
           <div
             key={`row2-${i}`}
-            className="flex-1 h-full bg-gray-800/20 border border-gray-700/30 rounded-lg"
+            className="flex-1 h-full bg-gray-800/20 border min-w-[300px]  border-gray-700/30 rounded-lg"
           />
         ))}
       </div>
@@ -158,7 +158,7 @@ const BrickGrid = ({ className }: { className?: string }) => {
         {[...Array(10)].map((_, i) => (
           <div
             key={`row3-${i}`}
-            className="flex-1 h-full bg-gray-800/20 border border-gray-700/30 rounded-lg"
+            className="flex-1 h-full bg-gray-800/20 border min-w-[300px] border-gray-700/30 rounded-lg"
           />
         ))}
       </div>
