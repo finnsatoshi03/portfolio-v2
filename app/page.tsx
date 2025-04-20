@@ -4,6 +4,7 @@ import Bio from "./_features/bio";
 import Skills from "./_features/skills";
 import Projects from "./_features/projects";
 import Archives from "./_features/archives";
+import Footer from "./_features/footer";
 
 import { ProjectsHeader } from "./_features/projects/_components/ProjectsHeader";
 import { ArchivesHeader } from "./_features/archives/_components/ArchivesHeader";
@@ -14,6 +15,7 @@ import BrickGrid from "./_components/BrickGrid";
 
 import { Header } from "./_components/Header";
 import { Navigation } from "./_components/Navigation";
+
 export default function Home() {
   return (
     <>
@@ -30,13 +32,17 @@ export default function Home() {
         <LightEffect className="z-20" />
         <Skills className="z-30" />
       </div>
-      <div className="projects-section space-y-8 h-full flex flex-col relative px-4 md:p-8">
+      <div className="projects-section space-y-8 h-full flex flex-col relative p-4 md:p-8">
         <ProjectsHeader />
         <Projects />
       </div>
-      <div className="archives-section space-y-8 h-screen flex flex-col relative px-4 md:p-8">
+      <div className="archives-section space-y-8 h-full flex flex-col relative p-4 md:p-8">
         <ArchivesHeader />
         <Archives />
+      </div>
+      {/* Footer */}
+      <div className="footer-section space-y-8 h-full flex flex-col relative p-4 md:p-8 md:mt-0 mt-8">
+        <Footer />
       </div>
     </>
   );
