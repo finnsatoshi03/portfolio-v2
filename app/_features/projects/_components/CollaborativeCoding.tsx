@@ -802,36 +802,36 @@ export const CollaborativeCoding: React.FC = () => {
                     lineRefs.current[index] = el;
                   }}
                   className={`
-                    ${
-                      highlightedLines.M3RK === index &&
-                      highlightedLines.Ego === index
-                        ? `bg-yellow-500/10 border-l-2 border-yellow-500`
-                        : highlightedLines.M3RK === index
-                        ? `bg-blue-500/10 border-l-2 border-blue-500`
-                        : highlightedLines.Ego === index
-                        ? `bg-purple-500/10 border-l-2 border-purple-500`
-                        : "border-l-2 border-transparent"
-                    }
-                    ${
-                      editing.M3RK.line === index
-                        ? `border-l-2 border-blue-500`
-                        : ""
-                    }
-                    ${
-                      editing.Ego.line === index
-                        ? `border-l-2 border-purple-500`
-                        : ""
-                    }
-                    ${changedLines.includes(index) ? `bg-green-500/5` : ""}
-                    ${
-                      line.includes("<<<<<<<") ||
-                      line.includes("=======") ||
-                      line.includes(">>>>>>>")
-                        ? "bg-yellow-500/20"
-                        : ""
-                    }
-                    hover:bg-gray-800/50
-                  `}
+                  ${
+                    highlightedLines.M3RK === index &&
+                    highlightedLines.Ego === index
+                      ? `bg-yellow-500/10 border-l-2 border-yellow-500`
+                      : highlightedLines.M3RK === index
+                      ? `bg-blue-500/10 border-l-2 border-blue-500`
+                      : highlightedLines.Ego === index
+                      ? `bg-purple-500/10 border-l-2 border-purple-500`
+                      : "border-l-2 border-transparent"
+                  }
+                  ${
+                    editing.M3RK.line === index
+                      ? `border-l-2 border-blue-500`
+                      : ""
+                  }
+                  ${
+                    editing.Ego.line === index
+                      ? `border-l-2 border-purple-500`
+                      : ""
+                  }
+                  ${changedLines.includes(index) ? `bg-green-500/5` : ""}
+                  ${
+                    line?.includes("<<<<<<<") ||
+                    line?.includes("=======") ||
+                    line?.includes(">>>>>>>")
+                      ? "bg-yellow-500/20"
+                      : ""
+                  }
+                  hover:bg-gray-800/50
+                `}
                 >
                   <td className="text-gray-500 w-10 text-right pr-2 select-none">
                     {index + 1}

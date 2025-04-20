@@ -19,7 +19,7 @@ export const ArchiveCard: React.FC<ArchiveCardProps> = ({ item }) => {
 
   return (
     <div
-      className="relative overflow-hidden grid grid-cols-[1fr_1fr_1fr] md:grid-cols-[0.5fr_1fr_1fr] transition-all duration-300 ease-in-out hover:text-black gap-4 text-lg -mx-4 md:-mx-8 py-2 md:px-8 px-4 border-b group"
+      className="relative overflow-hidden grid grid-cols-[1fr_1fr_1fr] md:grid-cols-[0.8fr_1fr_1fr] transition-all duration-300 ease-in-out hover:text-black gap-4 text-lg -mx-4 md:-mx-8 py-2 cursor-pointer md:px-8 px-4 border-b group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
