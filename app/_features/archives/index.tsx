@@ -1,47 +1,15 @@
 import React from "react";
 import Link from "next/link";
+
+import { ARCHIVES_DATA } from "@/app/_lib/_const/archives";
+import { UI_UX_IMAGES, GRAPHIC_DESIGN_IMAGES } from "@/app/_lib/_const/designs";
+
 import { DesignCategoryCard } from "./_components/DesignCategoryCard";
-import { StackedImage } from "./_components/StackedImagesCard";
-import { ArchiveCard, ArchiveItem } from "./_components/ArchiveCard";
-
-const UI_UX_IMAGES: StackedImage[] = [
-  { id: 1, src: "", alt: "UI/UX Design 1" },
-  { id: 2, src: "", alt: "UI/UX Design 2" },
-  { id: 3, src: "", alt: "UI/UX Design 3" },
-  { id: 4, src: "", alt: "UI/UX Design 4" },
-];
-
-const GRAPHIC_DESIGN_IMAGES: StackedImage[] = [
-  { id: 1, src: "", alt: "Graphic Design 1" },
-  { id: 2, src: "", alt: "Graphic Design 2" },
-  { id: 3, src: "", alt: "Graphic Design 3" },
-  { id: 4, src: "", alt: "Graphic Design 4" },
-];
+import { ArchiveCard } from "./_components/ArchiveCard";
 
 const CATEGORIES = [
   { title: "UI/UX", images: UI_UX_IMAGES },
   { title: "Graphic Designs", images: GRAPHIC_DESIGN_IMAGES },
-];
-
-const ARCHIVES_DATA: ArchiveItem[] = [
-  { id: 1, title: "Portfolio Redesign", category: "UI/UX", year: 2023 },
-  {
-    id: 2,
-    title: "Brand Identity System",
-    category: "Graphic Design",
-    year: 2023,
-  },
-  { id: 3, title: "E-commerce App", category: "UI/UX", year: 2022 },
-  {
-    id: 4,
-    title: "Marketing Campaign",
-    category: "Graphic Design",
-    year: 2022,
-  },
-  { id: 5, title: "Dashboard Interface", category: "UI/UX", year: 2021 },
-  { id: 6, title: "Product Packaging", category: "Graphic Design", year: 2021 },
-  { id: 7, title: "Mobile App Redesign", category: "UI/UX", year: 2020 },
-  { id: 8, title: "Logo Collection", category: "Graphic Design", year: 2020 },
 ];
 
 export default function Archives() {

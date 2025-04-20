@@ -1,0 +1,38 @@
+export const SELECTED_PROJECTS = [
+  {
+    id: 1,
+    date: "2023",
+    category: "Company System",
+    title: "Project 1",
+    image: "",
+    isLive: false,
+    logo: null,
+  },
+  {
+    id: 2,
+    date: "2024",
+    category: "Thesis Commission",
+    title: "Project 2",
+    image: "",
+    isLive: false,
+    logo: null,
+  },
+  {
+    id: 3,
+    date: "2025",
+    category: "Educational System",
+    title: "Project 3",
+    image: "",
+    isLive: false,
+    logo: null,
+  },
+  {
+    id: 4,
+    date: "2025",
+    category: "Thesis Commission",
+    title: "Project 4",
+    image: "",
+    isLive: false,
+    logo: null,
+  },
+];
