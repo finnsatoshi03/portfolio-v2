@@ -7,12 +7,16 @@ export function GeneralCard({
   children,
   isTitleOnBottom = false,
   className,
+  onMouseEnter,
+  onMouseLeave,
 }: {
   title?: string;
   description?: string;
   children?: ReactNode;
   isTitleOnBottom?: boolean;
   className?: string;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }) {
   return (
     <div
@@ -20,6 +24,8 @@ export function GeneralCard({
         "rounded-lg border border-gray-700/30 flex flex-col justify-between p-2 md:p-4 space-y-2",
         className
       )}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {!isTitleOnBottom && (
         <div>

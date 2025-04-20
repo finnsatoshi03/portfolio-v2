@@ -3,6 +3,7 @@ import React from "react";
 import Bio from "./_features/bio";
 import Skills from "./_features/skills";
 import Projects from "./_features/projects";
+import Archives from "./_features/archives";
 
 import { ProjectsHeader } from "./_features/projects/_components/ProjectsHeader";
 import { ArchivesHeader } from "./_features/archives/_components/ArchivesHeader";
@@ -13,7 +14,6 @@ import BrickGrid from "./_components/BrickGrid";
 
 import { Header } from "./_components/Header";
 import { Navigation } from "./_components/Navigation";
-
 export default function Home() {
   return (
     <>
@@ -36,6 +36,7 @@ export default function Home() {
       </div>
       <div className="archives-section space-y-8 h-screen flex flex-col relative px-4 md:p-8">
         <ArchivesHeader />
+        <Archives />
       </div>
     </>
   );
