@@ -2,10 +2,10 @@ import { NavLink } from "./NavLink";
 
 export const QuickLinks = () => {
   const navLinks = [
-    { href: "/", label: "Bio" },
-    { href: "/", label: "Projects" },
-    { href: "/", label: "Archives" },
-    { href: "/", label: "Contact" },
+    { href: "/#bio", label: "Bio" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/#archives", label: "Archives" },
+    { href: "/#contact", label: "Contact" },
   ];
 
   return (
