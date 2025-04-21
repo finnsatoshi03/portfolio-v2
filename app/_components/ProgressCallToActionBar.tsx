@@ -65,7 +65,7 @@ export const ProgressCallToActionBar = () => {
 
     const animateCTA = (y: "show" | "hide") => {
       gsap.to(ctaRef.current, {
-        y: y === "show" ? 0 : 100,
+        y: y === "show" ? -20 : 100,
         duration: 0.3,
         ease: "power2.inOut",
         overwrite: true,
@@ -85,7 +85,7 @@ export const ProgressCallToActionBar = () => {
       ref={ctaRef}
       className="fixed bottom-[5%] left-1/2 -translate-x-1/2 z-50 pointer-events-none"
     >
-      <div className="p-1 bg-border rounded flex text-xs items-center justify-center gap-1">
+      <div className="p-1 bg-border rounded flex text-[10px] md:text-xs items-center justify-center gap-1 min-w-[450px]">
         {texts.map((text, index) => (
           <div
             key={text}
