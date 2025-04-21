@@ -26,7 +26,6 @@ const LightEffect = ({ className = "" }: LightEffectProps) => {
     gsap.fromTo(
       lightRef.current,
       {
-        opacity: 0,
         scale: 0.3,
         filter: "blur(60px)",
         y: -300, // Start further above the section
@@ -62,7 +61,7 @@ const LightEffect = ({ className = "" }: LightEffectProps) => {
     <div
       ref={lightRef}
       className={cn(
-        "absolute -top-[40vh] left-1/2 -translate-x-1/2 w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[#6CFF56]/40 to-transparent pointer-events-none",
+        "absolute -top-[40vh] left-1/2 -translate-x-1/2 opacity-0 w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[#6CFF56]/40 to-transparent pointer-events-none",
         className
       )}
       style={{

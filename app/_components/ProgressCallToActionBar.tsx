@@ -9,11 +9,13 @@ export const ProgressCallToActionBar = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const progressRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
-
   const texts = ["I'M", "CURRENTLY", "LOOKING", "FOR", "CLIENTS"];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+
+    // Initialize hidden state
+    gsap.set(ctaRef.current, { y: 100 });
 
     const setupScrollTrigger = () => {
       const bioSection = document.getElementById("bio");
@@ -36,7 +38,6 @@ export const ProgressCallToActionBar = () => {
                 1
               );
 
-              // Progress bar animation
               gsap.to(progressRefs.current[index], {
                 width: `${progress * 100}%`,
                 backgroundColor: progress >= 1 ? "transparent" : "#fff",
@@ -44,7 +45,6 @@ export const ProgressCallToActionBar = () => {
                 duration: 0,
               });
 
-              // Border animation - only apply border to the active item
               gsap.to(containerRefs.current[index], {
                 borderColor:
                   index === activeIndex && progress < 1
@@ -63,9 +63,10 @@ export const ProgressCallToActionBar = () => {
       }
     };
 
-    const animateCTA = (y: "show" | "hide") => {
+    const animateCTA = (action: "show" | "hide") => {
       gsap.to(ctaRef.current, {
-        y: y === "show" ? -20 : 100,
+        y: action === "show" ? 0 : 100,
+        opacity: action === "show" ? 1 : 0,
         duration: 0.3,
         ease: "power2.inOut",
         overwrite: true,
@@ -83,7 +84,7 @@ export const ProgressCallToActionBar = () => {
   return (
     <div
       ref={ctaRef}
-      className="fixed bottom-[5%] left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+      className="fixed bottom-[5%] left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0"
     >
       <div className="p-1 bg-border rounded flex text-[10px] md:text-xs items-center justify-center gap-1 min-w-[450px]">
         {texts.map((text, index) => (
