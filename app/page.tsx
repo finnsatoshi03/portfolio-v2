@@ -17,6 +17,8 @@ import { Header } from "./_components/Header";
 import { Navigation } from "./_components/Navigation";
 import { ProgressCallToActionBar } from "./_components/ProgressCallToActionBar";
 
+import { PROJECT_IMAGES } from "./_lib/_const/skills-images";
+
 export default function Home() {
   return (
     <>
@@ -31,7 +33,7 @@ export default function Home() {
         id="skills"
         className="skills-section h-screen flex items-center justify-center relative"
       >
-        <BrickGrid className="z-0" />
+        <BrickGrid className="z-0 opacity-30" images={PROJECT_IMAGES} />
         <SkillsShadow className="z-10" />
         <LightEffect className="z-20" />
         <Skills className="z-30" />

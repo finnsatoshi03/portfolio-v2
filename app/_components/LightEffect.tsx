@@ -27,13 +27,13 @@ const LightEffect = ({ className = "" }: LightEffectProps) => {
       lightRef.current,
       {
         scale: 0.3,
-        filter: "blur(60px)",
+        filter: "blur(80px)",
         y: -300, // Start further above the section
       },
       {
         opacity: 0.7,
         scale: 0.9,
-        filter: "blur(40px)",
+        filter: "blur(60px)",
         y: 0, // Move to its final position
         duration: 1.2,
         ease: "power2.out",
@@ -61,11 +61,12 @@ const LightEffect = ({ className = "" }: LightEffectProps) => {
     <div
       ref={lightRef}
       className={cn(
-        "absolute -top-[40vh] left-1/2 -translate-x-1/2 opacity-0 w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[#6CFF56]/40 to-transparent pointer-events-none",
+        "absolute -top-[40vh] left-1/2 -translate-x-1/2 opacity-0 w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[#6CFF56]/60 via-[#6CFF56]/40 to-transparent pointer-events-none",
         className
       )}
       style={{
-        boxShadow: "0 0 200px 100px rgba(108, 255, 86, 0.25)",
+        filter: "blur(60px)",
+        boxShadow: "0 0 150px 80px rgba(108, 255, 86, 0.3)",
       }}
     />
   );

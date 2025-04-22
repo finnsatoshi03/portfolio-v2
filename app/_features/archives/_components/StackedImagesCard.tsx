@@ -41,7 +41,7 @@ export const StackedImagesCard = ({
         {images.map((image, index) => {
           const baseOverlap = 10;
           const hoverOverlap = 8;
-          const overlap = isHovered ? hoverOverlap * 1.5 : baseOverlap;
+          const overlap = isHovered ? hoverOverlap * 3 : baseOverlap * 1.5;
           const visibleWidth = 100 - (images.length - 1) * overlap;
 
           return (
@@ -57,7 +57,8 @@ export const StackedImagesCard = ({
               <DynamicImage
                 src={image.src}
                 alt={image.alt}
-                className="h-full border-2 border-gray-800/50"
+                imageClassName={`object-top`}
+                className="h-full border-2 border-gray-800/50 rounded-lg"
               />
             </div>
           );

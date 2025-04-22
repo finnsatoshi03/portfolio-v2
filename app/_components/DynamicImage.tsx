@@ -4,6 +4,7 @@ import React from "react";
 type DynamicImageProps = {
   src?: string;
   alt: string;
+  imageClassName?: string;
   className?: string;
 };
 
@@ -11,6 +12,7 @@ export const DynamicImage = ({
   src,
   alt,
   className = "",
+  imageClassName = "",
 }: DynamicImageProps) => {
   if (!src) {
     return (
@@ -30,7 +32,7 @@ export const DynamicImage = ({
         src={src}
         alt={alt}
         fill
-        className="object-cover rounded-lg"
+        className={`object-cover rounded-lg ${imageClassName}`}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
