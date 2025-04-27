@@ -1,6 +1,7 @@
 import { Globe } from "lucide-react";
 import React from "react";
 import { DynamicImage } from "../../../_components/DynamicImage";
+import Image from "next/image";
 
 type Project = {
   id: number;
@@ -30,7 +31,16 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="flex items-center justify-between mt-auto">
         <p className="text-xs">{project.isLive ? "Live" : "Code only"}</p>
         <div>
-          {project.isLive ? project.logo : <Globe className="size-4" />}
+          {project.isLive ? (
+            <Image
+              src={project.logo ?? ""}
+              alt={`${project.title} logo`}
+              height={16}
+              width={16}
+            />
+          ) : (
+            <Globe className="size-4" />
+          )}
         </div>
       </div>
     </div>
