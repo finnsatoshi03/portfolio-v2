@@ -1,175 +1,143 @@
 "use client";
 
 import React from "react";
-import { Filter, Calendar, Globe, Code } from "lucide-react";
-import { SELECTED_PROJECTS } from "@/app/_lib/_const/projects";
-
-type FilterState = {
-  category: string;
-  year: string;
-  status: string;
-};
+import { Globe, Palette, Layers, Users, Calendar } from "lucide-react";
 
 interface ProjectsSidebarProps {
-  filters: FilterState;
-  onFilterChange: (filterType: keyof FilterState, value: string) => void;
-  totalProjects: number;
-  filteredCount: number;
+  activeSection: string;
+  onSectionClick: (sectionId: string) => void;
 }
 
-export const ProjectsSidebar: React.FC<ProjectsSidebarProps> = ({
-  filters,
-  onFilterChange,
-  totalProjects,
-  filteredCount,
-}) => {
-  // Extract unique values from projects
-  const categories = [
-    "All",
-    ...Array.from(new Set(SELECTED_PROJECTS.map((p) => p.category))),
-  ];
-  const years = [
-    "All",
-    ...Array.from(new Set(SELECTED_PROJECTS.map((p) => p.date)))
-      .sort()
-      .reverse(),
-  ];
-  const statuses = ["All", "Live", "Code Only"];
+const navigationItems = [
+  {
+    id: "websites",
+    label: "Websites",
+    icon: Globe,
+    description: "Web development projects",
+    color: "blue",
+  },
+  {
+    id: "uiux",
+    label: "UI/UX Design",
+    icon: Layers,
+    description: "User interface & experience design",
+    color: "green",
+  },
+  {
+    id: "graphics",
+    label: "Graphic Designs",
+    icon: Palette,
+    description: "Visual design work",
+    color: "purple",
+  },
+];
 
-  const FilterSection = ({
-    title,
-    icon: Icon,
-    options,
-    activeValue,
-    filterType,
-  }: {
-    title: string;
-    icon: React.ElementType;
-    options: string[];
-    activeValue: string;
-    filterType: keyof FilterState;
-  }) => (
-    <div className="space-y-3">
-      <div className="flex items-center space-x-2 text-sm text-gray-400">
-        <Icon className="size-4" />
-        <span>{title}</span>
-      </div>
-      <div className="space-y-1">
-        {options.map((option) => (
-          <button
-            key={option}
-            onClick={() => onFilterChange(filterType, option)}
-            className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
-              activeValue === option
-                ? "bg-white/10 text-white border border-gray-600/50"
-                : "text-gray-400 hover:text-white hover:bg-white/5"
-            }`}
-          >
-            {option}
-            {option !== "All" && filterType === "category" && (
-              <span className="ml-2 text-xs text-gray-500">
-                ({SELECTED_PROJECTS.filter((p) => p.category === option).length}
-                )
-              </span>
-            )}
-            {option !== "All" && filterType === "year" && (
-              <span className="ml-2 text-xs text-gray-500">
-                ({SELECTED_PROJECTS.filter((p) => p.date === option).length})
-              </span>
-            )}
-            {option !== "All" && filterType === "status" && (
-              <span className="ml-2 text-xs text-gray-500">
-                (
-                {option === "Live"
-                  ? SELECTED_PROJECTS.filter((p) => p.isLive).length
-                  : SELECTED_PROJECTS.filter((p) => !p.isLive).length}
-                )
-              </span>
-            )}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-
-  const handleClearFilters = () => {
-    onFilterChange("category", "All");
-    onFilterChange("year", "All");
-    onFilterChange("status", "All");
+const getColorClasses = (color: string) => {
+  const colors = {
+    blue: {
+      active: "bg-blue-500/20 text-blue-400 border-blue-500/50",
+      inactive: "text-gray-400 hover:text-blue-400 hover:bg-blue-500/10",
+      indicator: "bg-blue-500",
+    },
+    green: {
+      active: "bg-green-500/20 text-green-400 border-green-500/50",
+      inactive: "text-gray-400 hover:text-green-400 hover:bg-green-500/10",
+      indicator: "bg-green-500",
+    },
+    purple: {
+      active: "bg-purple-500/20 text-purple-400 border-purple-500/50",
+      inactive: "text-gray-400 hover:text-purple-400 hover:bg-purple-500/10",
+      indicator: "bg-purple-500",
+    },
   };
 
-  const hasActiveFilters =
-    filters.category !== "All" ||
-    filters.year !== "All" ||
-    filters.status !== "All";
+  return colors[color as keyof typeof colors] || colors.blue;
+};
 
+export const ProjectsSidebar: React.FC<ProjectsSidebarProps> = ({
+  activeSection,
+  onSectionClick,
+}) => {
   return (
-    <div className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-gray-700/30 p-4 lg:p-6 overflow-y-auto lg:h-full max-h-96 lg:max-h-none">
+    <div className="fixed left-0 top-0 w-80 h-screen border-r border-gray-700/30 bg-black/95 backdrop-blur-sm p-6 z-10">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-2">
-          <Filter className="size-4 text-gray-400" />
-          <h3 className="font-medium">Filters</h3>
-        </div>
-        {hasActiveFilters && (
-          <button
-            onClick={handleClearFilters}
-            className="text-xs text-gray-400 hover:text-white transition-colors"
-          >
-            Clear All
-          </button>
-        )}
+      <div className="mb-8 pt-20">
+        <h3 className="text-lg font-semibold mb-2">Portfolio Navigation</h3>
+        <p className="text-sm text-gray-400">
+          Explore my web development and design work
+        </p>
       </div>
 
-      {/* Results Count */}
-      <div className="mb-6 p-3 rounded-lg bg-gray-900/50 border border-gray-700/30">
-        <div className="text-sm">
-          <span className="text-white font-medium">{filteredCount}</span>
-          <span className="text-gray-400"> of {totalProjects} projects</span>
-        </div>
-        {hasActiveFilters && (
-          <div className="text-xs text-gray-500 mt-1">Filters applied</div>
-        )}
-      </div>
+      {/* Navigation Items */}
+      <nav className="space-y-2">
+        {navigationItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeSection === item.id;
+          const colorClasses = getColorClasses(item.color);
 
-      {/* Filter Sections */}
-      <div className="space-y-6">
-        <FilterSection
-          title="Category"
-          icon={Filter}
-          options={categories}
-          activeValue={filters.category}
-          filterType="category"
-        />
+          return (
+            <button
+              key={item.id}
+              onClick={() => onSectionClick(item.id)}
+              className={`w-full text-left p-4 rounded-lg border transition-all duration-200 ${
+                isActive
+                  ? `${colorClasses.active} border-opacity-50`
+                  : `${colorClasses.inactive} border-transparent hover:border-gray-600/30`
+              }`}
+            >
+              <div className="flex items-start space-x-3">
+                {/* Active Indicator */}
+                <div className="relative">
+                  <Icon className="size-5 mt-0.5" />
+                  {isActive && (
+                    <div
+                      className={`absolute -left-1 top-0 w-1 h-5 ${colorClasses.indicator} rounded-full`}
+                    />
+                  )}
+                </div>
 
-        <FilterSection
-          title="Year"
-          icon={Calendar}
-          options={years}
-          activeValue={filters.year}
-          filterType="year"
-        />
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-medium text-sm">{item.label}</h4>
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </nav>
 
-        <FilterSection
-          title="Status"
-          icon={Globe}
-          options={statuses}
-          activeValue={filters.status}
-          filterType="status"
-        />
-      </div>
-
-      {/* Footer Info */}
+      {/* Stats */}
       <div className="mt-8 pt-6 border-t border-gray-700/30">
-        <div className="text-xs text-gray-500 space-y-2">
-          <div className="flex items-center space-x-2">
-            <div className="size-2 bg-red-500 rounded-full animate-pulse" />
-            <span>Live projects</span>
+        <div className="space-y-4">
+          <div className="flex items-center space-x-3 text-sm">
+            <Calendar className="size-4 text-gray-500" />
+            <span className="text-gray-400">3 Core Disciplines</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <Code className="size-3" />
-            <span>Code-only projects</span>
+          <div className="flex items-center space-x-3 text-sm">
+            <Users className="size-4 text-gray-500" />
+            <span className="text-gray-400">Continuous Scrolling</span>
           </div>
+        </div>
+      </div>
+
+      {/* Progress Indicator */}
+      <div className="mt-6">
+        <div className="text-xs text-gray-500 mb-2">Scroll Progress</div>
+        <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-blue-500 via-green-500 to-purple-500 transition-all duration-300"
+            style={{
+              width: `${
+                (navigationItems.findIndex(
+                  (item) => item.id === activeSection
+                ) +
+                  1) *
+                (100 / navigationItems.length)
+              }%`,
+            }}
+          />
         </div>
       </div>
     </div>

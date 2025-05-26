@@ -1,51 +1,56 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { SELECTED_PROJECTS } from "@/app/_lib/_const/projects";
-import { ProjectsSidebar } from "./_components/ProjectsSidebar";
-import { ProjectsShowcase } from "./_components/ProjectsShowcase";
+import { ARCHIVES_DATA } from "@/app/_lib/_const/archives";
+import { GRAPHIC_DESIGN_IMAGES, UI_UX_IMAGES } from "@/app/_lib/_const/designs";
 
-type FilterState = {
-  category: string;
-  year: string;
-  status: string;
-};
+import { ProjectsSidebar } from "./_components/ProjectsSidebar";
+import { WebsitesSection } from "./_components/WebsitesSection";
+import { GraphicDesignsSection } from "./_components/GraphicDesignsSection";
+import { UIUXSection } from "./_components/UIUXSection";
 
 export default function ProjectsPage() {
-  const [filters, setFilters] = useState<FilterState>({
-    category: "All",
-    year: "All",
-    status: "All",
-  });
+  const [activeSection, setActiveSection] = useState<string>("websites");
 
-  const filteredProjects = useMemo(() => {
-    return SELECTED_PROJECTS.filter((project) => {
-      const categoryMatch =
-        filters.category === "All" || project.category === filters.category;
-      const yearMatch = filters.year === "All" || project.date === filters.year;
-      const statusMatch =
-        filters.status === "All" ||
-        (filters.status === "Live" && project.isLive) ||
-        (filters.status === "Code Only" && !project.isLive);
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["websites", "uiux", "graphics"];
+      const scrollPosition = window.scrollY + 200;
 
-      return categoryMatch && yearMatch && statusMatch;
-    });
-  }, [filters]);
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
 
-  const handleFilterChange = (filterType: keyof FilterState, value: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      [filterType]: value,
-    }));
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleSectionClick = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <div className="border-b border-gray-700/30 p-4 md:p-6">
+      <div className="fixed top-0 left-80 right-0 border-b border-gray-700/30 p-4 md:p-6 bg-black/95 backdrop-blur-sm z-20">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link
@@ -57,27 +62,69 @@ export default function ProjectsPage() {
             </Link>
             <div className="h-4 w-px bg-gray-700/50" />
             <div>
-              <h1 className="text-xl md:text-2xl font-medium">All Projects</h1>
+              <h1 className="text-xl md:text-2xl font-medium">Portfolio</h1>
               <p className="text-sm text-gray-400 mt-1">
-                {filteredProjects.length} of {SELECTED_PROJECTS.length} projects
+                Web Development & Design Showcase
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex flex-col lg:flex-row h-[calc(100vh-7rem)]">
-        {/* Sidebar */}
-        <ProjectsSidebar
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          totalProjects={SELECTED_PROJECTS.length}
-          filteredCount={filteredProjects.length}
-        />
+      {/* Sidebar */}
+      <ProjectsSidebar
+        activeSection={activeSection}
+        onSectionClick={handleSectionClick}
+      />
 
-        {/* Showcase */}
-        <ProjectsShowcase projects={filteredProjects} />
+      {/* Main Content */}
+      <div className="ml-80 pt-24">
+        {/* Websites Section */}
+        <section id="websites" className="min-h-screen">
+          <div className="p-6 md:p-8 lg:p-12">
+            <div className="mb-8">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-1 h-8 bg-blue-500 rounded-full" />
+                <h2 className="text-3xl md:text-4xl font-bold">Websites</h2>
+              </div>
+              <div className="h-px bg-gradient-to-r from-blue-500/50 to-transparent mb-8" />
+            </div>
+            <WebsitesSection
+              projects={SELECTED_PROJECTS}
+              archives={ARCHIVES_DATA}
+            />
+          </div>
+        </section>
+
+        {/* UI/UX Section */}
+        <section id="uiux" className="min-h-screen">
+          <div className="p-6 md:p-8 lg:p-12">
+            <div className="mb-8">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-1 h-8 bg-green-500 rounded-full" />
+                <h2 className="text-3xl md:text-4xl font-bold">UI/UX Design</h2>
+              </div>
+              <div className="h-px bg-gradient-to-r from-green-500/50 to-transparent mb-8" />
+            </div>
+            <UIUXSection designs={UI_UX_IMAGES} />
+          </div>
+        </section>
+
+        {/* Graphic Designs Section */}
+        <section id="graphics" className="min-h-screen">
+          <div className="p-6 md:p-8 lg:p-12">
+            <div className="mb-8">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-1 h-8 bg-purple-500 rounded-full" />
+                <h2 className="text-3xl md:text-4xl font-bold">
+                  Graphic Designs
+                </h2>
+              </div>
+              <div className="h-px bg-gradient-to-r from-purple-500/50 to-transparent mb-8" />
+            </div>
+            <GraphicDesignsSection designs={GRAPHIC_DESIGN_IMAGES} />
+          </div>
+        </section>
       </div>
     </div>
   );
