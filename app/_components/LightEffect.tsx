@@ -26,23 +26,23 @@ const LightEffect = ({ className = "" }: LightEffectProps) => {
     gsap.fromTo(
       lightRef.current,
       {
-        scale: 0.3,
-        filter: "blur(80px)",
-        y: -300, // Start further above the section
+        scale: 0.4,
+        filter: "blur(40px)",
+        y: -200,
       },
       {
-        opacity: 0.7,
-        scale: 0.9,
-        filter: "blur(60px)",
-        y: 0, // Move to its final position
-        duration: 1.2,
+        opacity: 0.5,
+        scale: 0.8,
+        filter: "blur(30px)",
+        y: 0,
+        duration: 1,
         ease: "power2.out",
         scrollTrigger: {
           trigger: ".skills-section",
-          start: "bottom-=150 bottom-=100", // Start when the top of the section is near the bottom of the viewport
-          end: "center center", // End when the bottom of the section is near the top of the viewport
-          toggleActions: "play reverse play reverse", // Play on enter, reverse on leave, play on enter again, reverse on leave again
-          scrub: 1, // Smooth scrubbing effect for better reverse scrolling
+          start: "bottom-=150 bottom-=100",
+          end: "center center",
+          toggleActions: "play reverse play reverse",
+          scrub: 1.5,
         },
       }
     );
@@ -61,12 +61,12 @@ const LightEffect = ({ className = "" }: LightEffectProps) => {
     <div
       ref={lightRef}
       className={cn(
-        "absolute -top-[40vh] left-1/2 -translate-x-1/2 opacity-0 w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[#6CFF56]/60 via-[#6CFF56]/40 to-transparent pointer-events-none",
+        "absolute -top-[30vh] left-1/2 -translate-x-1/2 opacity-0 w-[70vw] h-[70vw] max-w-[600px] max-h-[600px] rounded-full bg-gradient-to-b from-[#6CFF56]/40 via-[#6CFF56]/20 to-transparent pointer-events-none",
         className
       )}
       style={{
-        filter: "blur(60px)",
-        boxShadow: "0 0 150px 80px rgba(108, 255, 86, 0.3)",
+        filter: "blur(30px)",
+        boxShadow: "0 0 100px 50px rgba(108, 255, 86, 0.2)",
       }}
     />
   );

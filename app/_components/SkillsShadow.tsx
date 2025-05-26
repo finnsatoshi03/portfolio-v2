@@ -25,23 +25,23 @@ const SkillsShadow = ({ className = "" }: SkillsShadowProps) => {
     gsap.fromTo(
       shadowRef.current,
       {
-        scale: 0.3,
-        filter: "blur(80px)",
-        y: -200,
+        scale: 0.4,
+        filter: "blur(40px)",
+        y: -150,
       },
       {
-        opacity: 0.9,
-        scale: 1,
-        filter: "blur(60px)",
-        y: -40,
-        duration: 1.2,
+        opacity: 0.7,
+        scale: 0.9,
+        filter: "blur(30px)",
+        y: -30,
+        duration: 1,
         ease: "power2.out",
         scrollTrigger: {
           trigger: ".skills-section",
           start: "bottom-=150 bottom-=100",
           end: "center center",
           toggleActions: "play reverse play reverse",
-          scrub: 1.5,
+          scrub: 2,
         },
       }
     );
@@ -65,11 +65,11 @@ const SkillsShadow = ({ className = "" }: SkillsShadowProps) => {
     >
       <div
         ref={shadowRef}
-        className="w-[100%] h-[100%] rounded-full bg-gradient-to-b from-black via-black/80 to-transparent opacity-0"
+        className="w-[80%] h-[80%] rounded-full bg-gradient-to-b from-black via-black/70 to-transparent opacity-0"
         style={{
-          filter: "blur(60px)",
-          boxShadow: "0 0 150px 80px rgba(0, 0, 0, 0.9)",
-          transform: "translateY(-40%)",
+          filter: "blur(30px)",
+          boxShadow: "0 0 100px 50px rgba(0, 0, 0, 0.7)",
+          transform: "translateY(-30%)",
         }}
       />
     </div>

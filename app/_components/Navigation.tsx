@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useScrollSmoother } from "@/app/_hooks/useScrollSmoother";
 
 export function Navigation() {
   const [mounted, setMounted] = useState(false);
@@ -11,6 +12,16 @@ export function Navigation() {
     navItems.map(() => "")
   );
   const characters = "01</>{};";
+  const { scrollTo } = useScrollSmoother();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: string
+  ) => {
+    e.preventDefault();
+    const target = `#${item}`;
+    scrollTo(target, true);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -80,7 +91,11 @@ export function Navigation() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2, delay: 0.1 * index }}
             >
-              <Link href={`/#${item}`} className="inline-block">
+              <Link
+                href={`/#${item}`}
+                className="inline-block"
+                onClick={(e) => handleNavClick(e, item)}
+              >
                 {mounted ? randomizedTexts[index] : item}
               </Link>
             </motion.div>

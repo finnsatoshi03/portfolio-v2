@@ -16,12 +16,13 @@ import BrickGrid from "./_components/BrickGrid";
 import { Header } from "./_components/Header";
 import { Navigation } from "./_components/Navigation";
 import { ProgressCallToActionBar } from "./_components/ProgressCallToActionBar";
+import { ScrollSmootherProvider } from "./_components/ScrollSmootherProvider";
 
 import { PROJECT_IMAGES } from "./_lib/_const/skills-images";
 
 export default function Home() {
   return (
-    <>
+    <ScrollSmootherProvider>
       <div id="bio" className="p-4 pb-0 flex flex-col min-h-screen">
         <Header />
         <div className="p-[clamp(1rem,8vw,2rem)] pb-0 flex-1 flex flex-col gap-4">
@@ -32,6 +33,7 @@ export default function Home() {
       <div
         id="skills"
         className="skills-section h-screen flex items-center justify-center relative"
+        style={{ willChange: "transform, opacity" }}
       >
         <BrickGrid className="z-0 opacity-30" images={PROJECT_IMAGES} />
         <SkillsShadow className="z-10" />
@@ -60,6 +62,6 @@ export default function Home() {
         <Footer />
       </div>
       <ProgressCallToActionBar />
-    </>
+    </ScrollSmootherProvider>
   );
 }

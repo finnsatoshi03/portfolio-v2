@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import localFont from "next/font/local";
 import { Didact_Gothic } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,6 +30,15 @@ export default function Skills({ className }: { className?: string }) {
     "Graphic Design": "[VIEW ARTWORK]",
   };
 
+  // Memoize the repeated scroll text array to prevent recreation on each render
+  const scrollTextArray = useMemo(
+    () =>
+      Array(15)
+        .fill(null)
+        .map((_, i) => i),
+    []
+  );
+
   return (
     <div className={cn("relative w-full overflow-hidden", className)}>
       <div
@@ -49,13 +58,12 @@ export default function Skills({ className }: { className?: string }) {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 animate={{
-                  opacity: hoveredIndex === index ? 0.5 : 1,
-                  scale: hoveredIndex === index ? 0.95 : 1,
-                  filter: hoveredIndex === index ? "blur(2px)" : "blur(0px)",
+                  opacity: hoveredIndex === index ? 0.6 : 1,
+                  scale: hoveredIndex === index ? 0.98 : 1,
                 }}
                 transition={{
-                  duration: 0.4,
-                  ease: [0.19, 1, 0.22, 1],
+                  duration: 0.3,
+                  ease: "easeOut",
                 }}
               >
                 {skill}
@@ -83,12 +91,12 @@ export default function Skills({ className }: { className?: string }) {
                           x: {
                             repeat: Infinity,
                             repeatType: "loop",
-                            duration: 8, // Faster animation (reduced from 12)
+                            duration: 6,
                             ease: "linear",
                           },
                         }}
                       >
-                        {[...Array(30)].map((_, i) => (
+                        {scrollTextArray.map((i) => (
                           <span key={i}>
                             {scrollTexts[skill as keyof typeof scrollTexts]}
                           </span>

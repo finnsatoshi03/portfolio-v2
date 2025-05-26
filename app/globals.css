@@ -98,10 +98,19 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    @apply scroll-smooth;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* ScrollSmoother specific styles */
+  #smooth-wrapper {
+    overflow: hidden;
+  }
+
+  #smooth-content {
+    overflow: visible;
+    width: 100%;
   }
 }
 

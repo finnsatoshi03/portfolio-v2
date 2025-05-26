@@ -26,8 +26,8 @@ const BrickGrid = ({ className, images = [] }: BrickGridProps) => {
   const row2Ref = useRef<HTMLDivElement>(null);
   const row3Ref = useRef<HTMLDivElement>(null);
 
-  // Configuration
-  const IMAGES_PER_ROW = 7;
+  // Configuration - Reduced for better performance
+  const IMAGES_PER_ROW = 5;
   const defaultImage = { src: "/placeholder.jpg", alt: "Placeholder image" };
 
   // Memoize row images to prevent unnecessary recalculations
@@ -116,15 +116,17 @@ const BrickGrid = ({ className, images = [] }: BrickGridProps) => {
       {images.map((image, i) => (
         <div
           key={`row-${i}`}
-          className="flex-1 h-full bg-gray-800/20 border min-w-[300px] border-gray-700/30 rounded-lg overflow-hidden relative"
+          className="flex-1 h-full bg-gray-800/20 border min-w-[250px] border-gray-700/30 rounded-lg overflow-hidden relative"
         >
           <Image
             src={image.src}
             alt={image.alt}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 300px"
+            sizes="(max-width: 768px) 100vw, 250px"
             loading="lazy"
+            priority={false}
+            quality={75}
           />
         </div>
       ))}
