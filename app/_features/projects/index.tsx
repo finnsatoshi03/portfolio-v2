@@ -21,7 +21,10 @@ export default function Projects() {
     <div className="w-full space-y-2">
       <div className="flex justify-between items-center">
         <h2>Selected Projects</h2>
-        <Link href="#" className="text-sm text-gray-500">
+        <Link
+          href="/projects"
+          className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+        >
           View All
         </Link>
       </div>

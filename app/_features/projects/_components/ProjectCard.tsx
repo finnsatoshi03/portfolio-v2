@@ -1,3 +1,5 @@
+"use client";
+
 import { Globe } from "lucide-react";
 import React from "react";
 import { DynamicImage } from "../../../_components/DynamicImage";
@@ -11,9 +13,16 @@ type Project = {
   image?: string;
   isLive: boolean;
   logo: string | null;
+  liveUrl?: string;
 };
 
 export function ProjectCard({ project }: { project: Project }) {
+  const handleLiveClick = (): void => {
+    if (project.isLive && project.liveUrl) {
+      window.open(project.liveUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <div className="rounded-lg border border-gray-700/30 p-2 md:p-4 flex flex-col h-full space-y-2">
       <div>
@@ -29,7 +38,22 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
       <h2 className="text-center text-white/70 text-sm">{project.title}</h2>
       <div className="flex items-center justify-between mt-auto">
-        <p className="text-xs">{project.isLive ? "Live" : "Code only"}</p>
+        <div className="flex items-center space-x-2">
+          {project.isLive && (
+            <div className="size-1.5 bg-red-500 rounded-full animate-pulse"></div>
+          )}
+          <button
+            onClick={handleLiveClick}
+            disabled={!project.isLive || !project.liveUrl}
+            className={`text-xs mb-0.5 ${
+              project.isLive && project.liveUrl
+                ? " cursor-pointer transition-colors"
+                : "text-white/50"
+            }`}
+          >
+            {project.isLive ? "Live" : "Code only"}
+          </button>
+        </div>
         <div>
           {project.isLive ? (
             <Image

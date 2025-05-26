@@ -683,9 +683,9 @@ export const CollaborativeCoding: React.FC = () => {
 
         // Replace or insert the line
         if (lineIndex < updatedLines.length) {
-          updatedLines[lineIndex] = currentText;
+          updatedLines[lineIndex] = currentText || "";
         } else {
-          updatedLines.push(currentText);
+          updatedLines.push(currentText || "");
         }
 
         setCodeLines(updatedLines);
@@ -850,9 +850,9 @@ export const CollaborativeCoding: React.FC = () => {
                         {/* Line content */}
                         <span
                           className={
-                            line.includes("<<<<<<<") ||
-                            line.includes("=======") ||
-                            line.includes(">>>>>>>")
+                            line?.includes("<<<<<<<") ||
+                            line?.includes("=======") ||
+                            line?.includes(">>>>>>>")
                               ? "text-yellow-300 font-bold"
                               : changedLines.includes(index)
                               ? "text-green-300"
@@ -863,7 +863,7 @@ export const CollaborativeCoding: React.FC = () => {
                             ? editing.M3RK.text
                             : editing.Ego.line === index
                             ? editing.Ego.text
-                            : line}
+                            : line || ""}
                         </span>
 
                         {/* M3RK cursor */}

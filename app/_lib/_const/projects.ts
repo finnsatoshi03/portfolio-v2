@@ -7,6 +7,7 @@ export const SELECTED_PROJECTS = [
     image: "/images/rms-system/cover.jpg",
     isLive: true,
     logo: "/images/rms-system/icon.png",
+    liveUrl: "https://www.rmsavisha.company/",
   },
   {
     id: 2,
@@ -16,15 +17,17 @@ export const SELECTED_PROJECTS = [
     image: "/images/eduQuest/cover.jpg",
     isLive: true,
     logo: "/images/eduQuest/icon.png",
+    liveUrl: "https://edu-quest-web-system.vercel.app/",
   },
   {
     id: 3,
-    date: "2024",
+    date: "2025",
     category: "Thesis Commission",
-    title: "D3xtra",
-    image: "/images/d3xtra/cover.jpg",
-    isLive: false,
-    logo: null,
+    title: "Veripay - HRIS - Payroll System (IoT)",
+    image: "/images/veripay/cover.png",
+    isLive: true,
+    logo: "/images/veripay/icon.png",
+    liveUrl: "https://veripay.pro",
   },
   {
     id: 4,
@@ -34,5 +37,6 @@ export const SELECTED_PROJECTS = [
     image: "/images/gas-sim/cover.jpg",
     isLive: true,
     logo: "/images/gas-sim/icon.svg",
+    liveUrl: "https://gas-law-simulation-web.vercel.app/",
   },
 ];
