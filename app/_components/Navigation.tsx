@@ -7,7 +7,14 @@ import { useScrollSmoother } from "@/app/_hooks/useScrollSmoother";
 
 export function Navigation() {
   const [mounted, setMounted] = useState(false);
-  const navItems = ["bio", "projects", "collaborators", "archives", "contact"];
+  const navItems = [
+    "bio",
+    "projects",
+    "collaborators",
+    "services",
+    "archives",
+    "contact",
+  ];
   const [randomizedTexts, setRandomizedTexts] = useState(
     navItems.map(() => "")
   );

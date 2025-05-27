@@ -6,10 +6,12 @@ import Projects from "./_features/projects";
 import Collaborators from "./_features/collaborators";
 import Archives from "./_features/archives";
 import Footer from "./_features/footer";
+import Services from "./_features/services";
 
 import { ProjectsHeader } from "./_features/projects/_components/ProjectsHeader";
 import { CollaboratorsHeader } from "./_features/collaborators/_components/CollaboratorsHeader";
 import { ArchivesHeader } from "./_features/archives/_components/ArchivesHeader";
+import { ServicesHeader } from "./_features/services/_components/ServicesHeader";
 
 import LightEffect from "./_components/LightEffect";
 import SkillsShadow from "./_components/SkillsShadow";
@@ -63,6 +65,13 @@ export default function Home() {
         >
           <CollaboratorsHeader />
           <Collaborators />
+        </div>
+        <div
+          id="services"
+          className="services-section space-y-8 h-full flex flex-col relative p-4 md:p-8"
+        >
+          <ServicesHeader />
+          <Services />
         </div>
         {/* Footer */}
         <div
