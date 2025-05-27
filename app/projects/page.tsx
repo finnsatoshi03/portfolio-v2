@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-import { SELECTED_PROJECTS } from "@/app/_lib/_const/projects";
+import { SELECTED_PROJECTS, PROJECTS } from "@/app/_lib/_const/projects";
 import { ARCHIVES_DATA } from "@/app/_lib/_const/archives";
 import { GRAPHIC_DESIGN_IMAGES, UI_UX_IMAGES } from "@/app/_lib/_const/designs";
 
@@ -90,7 +90,8 @@ export default function ProjectsPage() {
               <div className="h-px bg-gradient-to-r from-blue-500/50 to-transparent mb-8" />
             </div>
             <WebsitesSection
-              projects={SELECTED_PROJECTS}
+              featuredProjects={SELECTED_PROJECTS}
+              allProjects={PROJECTS}
               archives={ARCHIVES_DATA}
             />
           </div>

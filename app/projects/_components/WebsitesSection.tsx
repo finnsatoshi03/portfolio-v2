@@ -1,8 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Calendar, Tag, Globe } from "lucide-react";
+import {
+  ExternalLink,
+  Calendar,
+  Tag,
+  Globe,
+  Star,
+  ImageIcon,
+} from "lucide-react";
 import Image from "next/image";
 import { DynamicImage } from "@/app/_components/DynamicImage";
 
@@ -14,7 +21,7 @@ type Project = {
   image?: string;
   isLive: boolean;
   logo: string | null;
-  liveUrl?: string;
+  liveUrl?: string | null;
 };
 
 type ArchiveItem = {
@@ -25,14 +32,16 @@ type ArchiveItem = {
 };
 
 interface WebsitesSectionProps {
-  projects: Project[];
+  featuredProjects: Project[];
+  allProjects: Project[];
   archives: ArchiveItem[];
 }
 
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({
-  project,
-  index,
-}) => {
+const ProjectCard: React.FC<{
+  project: Project;
+  index: number;
+  isFeatured?: boolean;
+}> = ({ project, index, isFeatured = false }) => {
   const handleClick = () => {
     if (project.isLive && project.liveUrl) {
       window.open(project.liveUrl, "_blank", "noopener,noreferrer");
@@ -48,17 +57,34 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
     >
       {/* Header with date and category */}
       <div>
-        <p className="text-white/50 text-sm">{project.date}</p>
+        <div className="flex items-center justify-between">
+          <p className="text-white/50 text-sm">{project.date}</p>
+          {isFeatured && (
+            <Star className="size-4 text-yellow-400 fill-yellow-400" />
+          )}
+        </div>
         <h3 className="text-white">{project.category}</h3>
       </div>
 
       {/* Image container */}
       <div className="flex-1 min-h-[250px] relative overflow-hidden rounded-md">
-        <DynamicImage
-          src={project.image}
-          alt={project.title}
-          className="h-full w-full object-cover"
-        />
+        {project.image ? (
+          <DynamicImage
+            src={project.image}
+            alt={project.title}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="h-full w-full bg-gray-900/50 border border-gray-700/30 rounded-md flex items-center justify-center">
+            <div className="text-center space-y-3">
+              <ImageIcon className="size-12 text-gray-600 mx-auto" />
+              <div>
+                <p className="text-gray-400 text-sm font-medium">Image Cover</p>
+                <p className="text-gray-500 text-xs">Will be added soon</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Hover overlay with external link */}
         {project.isLive && project.liveUrl && (
@@ -79,23 +105,25 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
       {/* Footer with status and logo */}
       <div className="flex items-center justify-between mt-auto">
         <div className="flex items-center space-x-2">
-          {project.isLive && (
-            <div className="size-1.5 bg-red-500 rounded-full animate-pulse"></div>
+          {project.isLive ? (
+            <div className="size-1.5 bg-green-500 rounded-full animate-pulse"></div>
+          ) : (
+            <div className="size-1.5 bg-gray-500 rounded-full"></div>
           )}
           <button
             onClick={handleClick}
             disabled={!project.isLive || !project.liveUrl}
             className={`text-xs mb-0.5 ${
               project.isLive && project.liveUrl
-                ? "cursor-pointer transition-colors hover:text-white"
-                : "text-white/50"
+                ? "cursor-pointer transition-colors hover:text-white text-green-400"
+                : "text-gray-500"
             }`}
           >
-            {project.isLive ? "Live" : "Code only"}
+            {project.isLive ? "Live" : "Code Only"}
           </button>
         </div>
         <div>
-          {project.isLive && project.logo ? (
+          {project.logo ? (
             <Image
               src={project.logo}
               alt={`${project.title} logo`}
@@ -138,9 +166,19 @@ const ArchiveCard: React.FC<{ archive: ArchiveItem; index: number }> = ({
 };
 
 export const WebsitesSection: React.FC<WebsitesSectionProps> = ({
-  projects,
+  featuredProjects,
+  allProjects,
   archives,
 }) => {
+  const [filterStatus, setFilterStatus] = useState<"all" | "live">("all");
+
+  const filteredProjects = allProjects.filter((project) => {
+    if (filterStatus === "live") return project.isLive;
+    return true;
+  });
+
+  const liveProjectsCount = allProjects.filter((p) => p.isLive).length;
+
   return (
     <div className="space-y-8">
       {/* Description */}
@@ -155,12 +193,67 @@ export const WebsitesSection: React.FC<WebsitesSectionProps> = ({
       {/* Featured Projects */}
       <div>
         <div className="flex items-center space-x-2 mb-6">
-          <Calendar className="size-4 text-gray-400" />
+          <Star className="size-4 text-yellow-400" />
           <h3 className="text-lg font-medium">Featured Projects</h3>
+          <span className="text-sm text-gray-500">
+            ({featuredProjects.length})
+          </span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+          {featuredProjects.map((project, index) => (
+            <ProjectCard
+              key={`featured-${project.id}`}
+              project={project}
+              index={index}
+              isFeatured={true}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* All Projects */}
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-2">
+            <Calendar className="size-4 text-gray-400" />
+            <h3 className="text-lg font-medium">All Projects</h3>
+            <span className="text-sm text-gray-500">
+              ({allProjects.length})
+            </span>
+          </div>
+
+          {/* Filter Buttons */}
+          <div className="flex items-center space-x-1 bg-gray-900/50 rounded-lg p-1">
+            <button
+              onClick={() => setFilterStatus("all")}
+              className={`px-3 py-1 text-xs rounded transition-colors ${
+                filterStatus === "all"
+                  ? "bg-white text-black"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setFilterStatus("live")}
+              className={`px-3 py-1 text-xs rounded transition-colors ${
+                filterStatus === "live"
+                  ? "bg-green-500 text-white"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Live ({liveProjectsCount})
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project, index) => (
+            <ProjectCard
+              key={`all-${project.id}`}
+              project={project}
+              index={index}
+            />
           ))}
         </div>
       </div>
@@ -172,7 +265,7 @@ export const WebsitesSection: React.FC<WebsitesSectionProps> = ({
           <h3 className="text-lg font-medium">Archive Projects</h3>
           <span className="text-sm text-gray-500">({archives.length})</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {archives.map((archive, index) => (
             <ArchiveCard key={archive.id} archive={archive} index={index} />
           ))}

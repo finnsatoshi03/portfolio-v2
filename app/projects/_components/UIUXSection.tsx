@@ -83,10 +83,8 @@ export const UIUXSection: React.FC<UIUXSectionProps> = ({ designs }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             "User Research",
-            "Wireframing",
-            "Prototyping",
             "Figma",
-            "Adobe XD",
+            "Consistent Design",
             "User Testing",
             "Information Architecture",
             "Interaction Design",
