@@ -22,10 +22,10 @@ interface ProjectsSidebarProps {
 
 const navigationItems = [
   {
-    id: "websites",
-    label: "Websites",
+    id: "systems",
+    label: "Systems",
     icon: Globe,
-    description: "Full-stack web applications",
+    description: "Full-stack system applications",
     color: "blue",
     count: 9,
   },
@@ -98,7 +98,7 @@ export const ProjectsSidebar: React.FC<ProjectsSidebarProps> = ({
             <div>
               <h3 className="text-xl font-bold text-white">Portfolio</h3>
               <p className="text-sm text-gray-400 mt-1">
-                Web Development & Design Showcase
+                App Development & Design Showcase
               </p>
               <div className="flex items-center space-x-1 mt-2">
                 <MapPin className="size-3 text-gray-500" />

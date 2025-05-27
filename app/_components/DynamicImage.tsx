@@ -21,7 +21,7 @@ export const DynamicImage = ({
         role="img"
         aria-label={`Placeholder for ${alt}`}
       >
-        <div className="text-gray-400 text-sm">No image available</div>
+        <div className="text-gray-400 text-sm">Coming Soon</div>
       </div>
     );
   }

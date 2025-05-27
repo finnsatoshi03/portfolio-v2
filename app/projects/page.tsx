@@ -9,16 +9,16 @@ import { ARCHIVES_DATA } from "@/app/_lib/_const/archives";
 import { GRAPHIC_DESIGN_IMAGES, UI_UX_IMAGES } from "@/app/_lib/_const/designs";
 
 import { ProjectsSidebar } from "./_components/ProjectsSidebar";
-import { WebsitesSection } from "./_components/WebsitesSection";
+import { ProjectsSection } from "./_components/ProjectsSection";
 import { GraphicDesignsSection } from "./_components/GraphicDesignsSection";
 import { UIUXSection } from "./_components/UIUXSection";
 
 export default function ProjectsPage() {
-  const [activeSection, setActiveSection] = useState<string>("websites");
+  const [activeSection, setActiveSection] = useState<string>("systems");
 
   // Optimized scroll handler with throttling
   const handleScroll = useCallback(() => {
-    const sections = ["websites", "uiux", "graphics"];
+    const sections = ["systems", "uiux", "graphics"];
     const scrollPosition = window.scrollY + 200;
 
     for (const section of sections) {
@@ -57,7 +57,7 @@ export default function ProjectsPage() {
   // Handle URL hash on mount
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
-    if (hash && ["websites", "uiux", "graphics"].includes(hash)) {
+    if (hash && ["systems", "uiux", "graphics"].includes(hash)) {
       setTimeout(() => {
         const element = document.getElementById(hash);
         if (element) {
@@ -96,7 +96,7 @@ export default function ProjectsPage() {
             <div>
               <h1 className="text-xl md:text-2xl font-medium">Portfolio</h1>
               <p className="text-sm text-gray-400 mt-1">
-                Web Development & Design Showcase
+                App Development & Design Showcase
               </p>
             </div>
           </div>
@@ -112,16 +112,16 @@ export default function ProjectsPage() {
       {/* Main Content */}
       <div className="ml-80 pt-24">
         {/* Websites Section */}
-        <section id="websites" className="min-h-screen">
+        <section id="systems" className="min-h-screen">
           <div className="p-6 md:p-8 lg:p-12">
             <div className="mb-8">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-1 h-8 bg-blue-500 rounded-full" />
-                <h2 className="text-3xl md:text-4xl font-bold">Websites</h2>
+                <h2 className="text-3xl md:text-4xl font-bold">Systems</h2>
               </div>
               <div className="h-px bg-gradient-to-r from-blue-500/50 to-transparent mb-8" />
             </div>
-            <WebsitesSection
+            <ProjectsSection
               featuredProjects={SELECTED_PROJECTS}
               allProjects={PROJECTS}
               archives={ARCHIVES_DATA}

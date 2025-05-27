@@ -31,7 +31,7 @@ type ArchiveItem = {
   year: number;
 };
 
-interface WebsitesSectionProps {
+interface ProjectsSectionProps {
   featuredProjects: Project[];
   allProjects: Project[];
   archives: ArchiveItem[];
@@ -165,7 +165,7 @@ const ArchiveCard: React.FC<{ archive: ArchiveItem; index: number }> = ({
   );
 };
 
-export const WebsitesSection: React.FC<WebsitesSectionProps> = ({
+export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   featuredProjects,
   allProjects,
   archives,
@@ -184,9 +184,9 @@ export const WebsitesSection: React.FC<WebsitesSectionProps> = ({
       {/* Description */}
       <div className="text-center space-y-2">
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Transform your vision into seamless, responsive websites. I create
-          visually engaging, user-friendly websites that are designed to
-          captivate and convert.
+          Transform your ideas into powerful digital solutions. I create
+          engaging websites, mobile applications, and robust systems that are
+          designed to deliver exceptional user experiences and drive results.
         </p>
       </div>
 
