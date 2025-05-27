@@ -3,10 +3,12 @@ import React from "react";
 import Bio from "./_features/bio";
 import Skills from "./_features/skills";
 import Projects from "./_features/projects";
+import Collaborators from "./_features/collaborators";
 import Archives from "./_features/archives";
 import Footer from "./_features/footer";
 
 import { ProjectsHeader } from "./_features/projects/_components/ProjectsHeader";
+import { CollaboratorsHeader } from "./_features/collaborators/_components/CollaboratorsHeader";
 import { ArchivesHeader } from "./_features/archives/_components/ArchivesHeader";
 
 import LightEffect from "./_components/LightEffect";
@@ -54,6 +56,13 @@ export default function Home() {
         >
           <ArchivesHeader />
           <Archives />
+        </div>
+        <div
+          id="collaborators"
+          className="collaborators-section space-y-8 h-full flex flex-col relative p-4 md:p-8"
+        >
+          <CollaboratorsHeader />
+          <Collaborators />
         </div>
         {/* Footer */}
         <div
