@@ -26,16 +26,17 @@ export const ScrollSmootherProvider: React.FC<ScrollSmootherProviderProps> = ({
         smoother = ScrollSmoother.create({
           wrapper: smoothWrapperRef.current,
           content: smoothContentRef.current,
-          smooth: 1.2, // Smoothness level (0-3, higher = smoother)
-          effects: true, // Enable data-speed effects
-          smoothTouch: 0.1, // Smooth scrolling on touch devices (0-1)
-          normalizeScroll: true, // Normalize scroll behavior across browsers
+          smooth: 1, // Balanced smoothness for good performance and UX
+          effects: false, // Keep effects disabled for performance
+          smoothTouch: 0.1, // Light smooth touch for mobile
+          normalizeScroll: true, // Re-enable for better cross-browser compatibility
+          ignoreMobileResize: true, // Keep this for performance
         });
       }
     };
 
-    // Initialize after a short delay to ensure DOM is ready
-    const timer = setTimeout(initSmoother, 100);
+    // Initialize with a small delay to ensure DOM is ready
+    const timer = setTimeout(initSmoother, 50);
 
     return () => {
       clearTimeout(timer);

@@ -23,7 +23,8 @@ export default function Projects() {
         <h2>Selected Projects</h2>
         <Link
           href="/projects"
-          className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+          prefetch={false}
+          className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
         >
           View All
         </Link>

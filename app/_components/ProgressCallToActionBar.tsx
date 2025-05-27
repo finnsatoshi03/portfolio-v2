@@ -4,18 +4,25 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import Link from "next/link";
+import { useScrollSmoother } from "@/app/_hooks/useScrollSmoother";
 
 export const ProgressCallToActionBar = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const progressRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const texts = ["I'M", "CURRENTLY", "LOOKING", "FOR", "CLIENTS"];
+  const { scrollTo } = useScrollSmoother();
+
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    scrollTo("#contact", true);
+  };
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initialize hidden state
-    gsap.set(ctaRef.current, { y: 100 });
+    // Initialize hidden state - start from below the visible area
+    gsap.set(ctaRef.current, { y: "100%", opacity: 0 });
 
     const setupScrollTrigger = () => {
       const bioSection = document.getElementById("bio");
@@ -65,7 +72,7 @@ export const ProgressCallToActionBar = () => {
 
     const animateCTA = (action: "show" | "hide") => {
       gsap.to(ctaRef.current, {
-        y: action === "show" ? 0 : 100,
+        y: action === "show" ? 0 : "100%",
         opacity: action === "show" ? 1 : 0,
         duration: 0.3,
         ease: "power2.inOut",
@@ -84,7 +91,7 @@ export const ProgressCallToActionBar = () => {
   return (
     <div
       ref={ctaRef}
-      className="fixed bottom-[5%] left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0"
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 translate-y-0 z-50 pointer-events-none mb-4"
     >
       <div className="p-1 bg-border rounded flex text-[10px] md:text-xs items-center justify-center gap-1 min-w-[450px]">
         {texts.map((text, index) => (
@@ -110,7 +117,8 @@ export const ProgressCallToActionBar = () => {
         ))}
         <Link
           href="/#contact"
-          className="px-4 py-2 bg-white text-black rounded hover:bg-white/60 cursor-pointer pointer-events-auto transition-colors"
+          onClick={handleContactClick}
+          className="px-4 py-2 bg-white text-black rounded hover:bg-white/60 cursor-pointer pointer-events-auto transition-colors duration-200"
         >
           CONTACT ME
         </Link>

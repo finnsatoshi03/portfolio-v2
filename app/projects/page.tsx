@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -16,36 +16,68 @@ import { UIUXSection } from "./_components/UIUXSection";
 export default function ProjectsPage() {
   const [activeSection, setActiveSection] = useState<string>("websites");
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["websites", "uiux", "graphics"];
-      const scrollPosition = window.scrollY + 200;
+  // Optimized scroll handler with throttling
+  const handleScroll = useCallback(() => {
+    const sections = ["websites", "uiux", "graphics"];
+    const scrollPosition = window.scrollY + 200;
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
-            break;
-          }
+    for (const section of sections) {
+      const element = document.getElementById(section);
+      if (element) {
+        const { offsetTop, offsetHeight } = element;
+        if (
+          scrollPosition >= offsetTop &&
+          scrollPosition < offsetTop + offsetHeight
+        ) {
+          setActiveSection(section);
+          break;
         }
+      }
+    }
+  }, []);
+
+  // Throttled scroll event listener
+  useEffect(() => {
+    let ticking = false;
+
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", throttledScroll, { passive: true });
+    return () => window.removeEventListener("scroll", throttledScroll);
+  }, [handleScroll]);
+
+  // Handle URL hash on mount
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash && ["websites", "uiux", "graphics"].includes(hash)) {
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          setActiveSection(hash);
+        }
+      }, 100);
+    }
   }, []);
 
-  const handleSectionClick = (sectionId: string) => {
+  const handleSectionClick = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(sectionId);
+
+      // Update URL without triggering navigation
+      window.history.replaceState(null, "", `#${sectionId}`);
     }
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -55,7 +87,7 @@ export default function ProjectsPage() {
           <div className="flex items-center space-x-4">
             <Link
               href="/"
-              className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+              className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200"
             >
               <ArrowLeft className="size-4" />
               <span className="text-sm">Back</span>

@@ -19,6 +19,8 @@ export function Navigation() {
     item: string
   ) => {
     e.preventDefault();
+
+    // Use the optimized scrollTo function which has native fallback
     const target = `#${item}`;
     scrollTo(target, true);
   };
@@ -26,37 +28,32 @@ export function Navigation() {
   useEffect(() => {
     setMounted(true);
 
-    // Start animation after a small delay
+    // Simplified and faster animation
     const timeoutId = setTimeout(() => {
       let iteration = 0;
-      const maxIterations = 20; // Increased from 10 to 20 iterations
+      const maxIterations = 15; // Reduced iterations for better performance
 
-      // Create random text effect
       const interval = setInterval(() => {
         iteration++;
 
         if (iteration >= maxIterations) {
           clearInterval(interval);
-          // Set final text after randomization
           setRandomizedTexts([...navItems]);
           return;
         }
 
-        // Create random texts
+        // Optimized randomization with better progress curve
         setRandomizedTexts(
           navItems.map((item) => {
-            // Make progress slower by reducing this value
-            const progress = (iteration / maxIterations) * 0.5; // Slowed down by multiplying by 0.8
+            const progress = Math.pow(iteration / maxIterations, 1.5); // Exponential curve for smoother transition
             let result = "";
 
             for (let i = 0; i < item.length; i++) {
-              // Decrease chance to show correct character to extend the random phase
               const showCorrect = Math.random() < progress;
 
               if (showCorrect) {
                 result += item[i];
               } else {
-                // Random character
                 result += characters.charAt(
                   Math.floor(Math.random() * characters.length)
                 );
@@ -66,20 +63,20 @@ export function Navigation() {
             return result;
           })
         );
-      }, 60); // Increased from 60ms to 100ms for slower iterations
+      }, 50); // Faster iterations
 
       return () => {
         clearInterval(interval);
         clearTimeout(timeoutId);
       };
-    }, 300); // Increased delay before starting
+    }, 200); // Reduced delay
 
     return () => clearTimeout(timeoutId);
   }, []);
 
   return (
     <nav
-      className={`w-full transition-opacity duration-500 ${
+      className={`w-full transition-opacity duration-300 ${
         !mounted ? "opacity-0" : "opacity-100"
       }`}
     >
@@ -89,11 +86,11 @@ export function Navigation() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, delay: 0.1 * index }}
+              transition={{ duration: 0.2, delay: 0.05 * index }}
             >
               <Link
                 href={`/#${item}`}
-                className="inline-block"
+                className="inline-block hover:text-gray-300 transition-colors duration-200"
                 onClick={(e) => handleNavClick(e, item)}
               >
                 {mounted ? randomizedTexts[index] : item}

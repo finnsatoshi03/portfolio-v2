@@ -43,7 +43,7 @@ const navigationItems = [
     icon: Palette,
     description: "Visual design & branding",
     color: "purple",
-    count: 4,
+    count: 3,
   },
 ];
 

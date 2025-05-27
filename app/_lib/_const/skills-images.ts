@@ -25,7 +25,6 @@ const allImages = [
   },
   { src: "/images/taguig-web/1.jpg", alt: "Taguig Web project screenshot 1" },
   { src: "/images/taguig-web/3.png", alt: "Taguig Web project screenshot 3" },
-  { src: "/images/graphics/homero.jpg", alt: "Homero Infographics" },
   {
     src: "/images/graphics/pythagoream-theorem.jpg",
     alt: "Pythagoream Theorem Infographics",

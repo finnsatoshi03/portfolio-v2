@@ -18,7 +18,11 @@ export default function Archives() {
       {/* Designs */}
       <div className="flex justify-between items-center">
         <h2>Selected Designs</h2>
-        <Link href="#" className="text-sm text-gray-500">
+        <Link
+          href="/projects#graphics"
+          prefetch={false}
+          className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
+        >
           View All
         </Link>
       </div>
@@ -35,9 +39,9 @@ export default function Archives() {
       {/* Archives */}
       <div className="flex justify-between items-center mb-4 mt-10 md:mt-16">
         <h2>Archives</h2>
-        <Link href="#" className="text-sm text-gray-500">
-          View All
-        </Link>
+        <span className="text-sm text-gray-600 cursor-not-allowed">
+          View All (Coming Soon)
+        </span>
       </div>
       <div>
         {ARCHIVES_DATA.map((item) => (
