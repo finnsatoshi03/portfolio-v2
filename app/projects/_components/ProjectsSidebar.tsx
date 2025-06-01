@@ -18,6 +18,8 @@ import {
 interface ProjectsSidebarProps {
   activeSection: string;
   onSectionClick: (sectionId: string) => void;
+  isOpen?: boolean;
+  isMobile?: boolean;
 }
 
 const navigationItems = [
@@ -87,9 +89,25 @@ const getColorClasses = (color: string) => {
 export const ProjectsSidebar: React.FC<ProjectsSidebarProps> = ({
   activeSection,
   onSectionClick,
+  isOpen = false,
+  isMobile = false,
 }) => {
   return (
-    <div className="fixed left-0 top-0 w-80 h-screen border-r border-gray-700/30 bg-black/95 backdrop-blur-sm overflow-y-auto z-10">
+    <div
+      id="projects-sidebar"
+      className={`fixed left-0 top-0 w-80 h-screen border-r border-gray-700/30 bg-black/95 backdrop-blur-sm overflow-y-auto transition-all duration-300 ease-in-out ${
+        isMobile
+          ? `z-50 shadow-2xl ${isOpen ? "translate-x-0" : "-translate-x-full"}`
+          : "z-10 translate-x-0"
+      }`}
+      style={
+        isMobile
+          ? {
+              boxShadow: isOpen ? "0 0 50px rgba(0, 0, 0, 0.5)" : "none",
+            }
+          : {}
+      }
+    >
       <div className="p-6 space-y-8">
         {/* Header */}
         <div>

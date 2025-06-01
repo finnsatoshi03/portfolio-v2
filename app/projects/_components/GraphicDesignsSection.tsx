@@ -129,7 +129,7 @@ const CategoryMasonry: React.FC<{
       </div>
 
       {designs.length > 0 ? (
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
           {designs.map((design, designIndex) => (
             <MasonryImage
               key={design.id}
@@ -140,7 +140,7 @@ const CategoryMasonry: React.FC<{
           ))}
         </div>
       ) : (
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
           {Array.from({ length: 4 }).map((_, placeholderIndex) => (
             <div
               key={placeholderIndex}
@@ -286,7 +286,7 @@ export const GraphicDesignsSection: React.FC<GraphicDesignsSectionProps> = ({
               <Palette className="size-4 text-gray-400" />
               <h3 className="text-lg font-medium">Featured Work</h3>
             </div>
-            <div className="columns-2 md:columns-4 gap-4 mb-8">
+            <div className="columns-1 sm:columns-2 md:columns-4 gap-4 mb-8">
               {designs.map((design, index) => (
                 <MasonryImage
                   key={design.id}
