@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
@@ -9,13 +11,19 @@ import { TeamStats } from "./_components/TeamStats";
 import { CollaborationNetwork } from "./_components/CollaborationNetwork";
 
 export default function Collaborators() {
+  // handlers
+  const handleViewAllClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.location.href = "/collaborators";
+  };
+
   return (
     <div className="w-full space-y-2">
       <div className="flex justify-between items-center">
         <h2>Collaborators</h2>
         <Link
           href="/collaborators"
-          prefetch={false}
+          onClick={handleViewAllClick}
           className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
         >
           View All

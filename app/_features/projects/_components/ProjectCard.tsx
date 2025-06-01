@@ -29,11 +29,11 @@ export function ProjectCard({ project }: { project: Project }) {
         <p className="text-white/50 text-sm">{project.date}</p>
         <h3 className="">{project.category}</h3>
       </div>
-      <div className="flex-1 min-h-[250px]">
+      <div className="flex-1 flex flex-col min-h-[250px]">
         <DynamicImage
           src={project.image}
           alt={project.title}
-          className="h-full"
+          className="flex-1 min-h-[250px]"
         />
       </div>
       <h2 className="text-center text-white/70 text-sm">{project.title}</h2>

@@ -87,7 +87,7 @@ export function Navigation() {
         !mounted ? "opacity-0" : "opacity-100"
       }`}
     >
-      <ul className="flex justify-between items-center uppercase">
+      <ul className="flex justify-between items-center flex-wrap uppercase">
         {navItems.map((item, index) => (
           <li key={index}>
             <motion.div

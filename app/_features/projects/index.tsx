@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
@@ -17,13 +19,19 @@ import { ComponentShowcase } from "./_components/ComponentShowcase";
 import { PerformanceWave } from "./_components/PerformanceWave";
 
 export default function Projects() {
+  // handlers
+  const handleViewAllClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.location.href = "/projects";
+  };
+
   return (
     <div className="w-full space-y-2">
       <div className="flex justify-between items-center">
         <h2>Selected Projects</h2>
         <Link
           href="/projects"
-          prefetch={false}
+          onClick={handleViewAllClick}
           className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
         >
           View All
