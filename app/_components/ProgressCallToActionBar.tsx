@@ -93,7 +93,7 @@ export const ProgressCallToActionBar = () => {
       ref={ctaRef}
       className="fixed bottom-0 left-1/2 -translate-x-1/2 translate-y-0 z-50 pointer-events-none mb-4"
     >
-      <div className="p-1 bg-border rounded flex text-[10px] md:text-xs items-center justify-center gap-1 min-w-[450px]">
+      <div className="p-1 bg-border rounded flex text-[10px] md:text-xs items-center justify-center gap-1 min-w-[300px] md:min-w-[450px]">
         {texts.map((text, index) => (
           <div
             key={text}
@@ -101,7 +101,7 @@ export const ProgressCallToActionBar = () => {
               containerRefs.current[index] = el;
               return undefined;
             }}
-            className="relative rounded px-4 py-2 overflow-hidden group transition-colors"
+            className="relative rounded md:px-4 px-1 py-0.5 md:py-2 overflow-hidden group transition-colors"
             style={{ border: "1px solid transparent" }}
           >
             <div
@@ -118,7 +118,7 @@ export const ProgressCallToActionBar = () => {
         <Link
           href="/#contact"
           onClick={handleContactClick}
-          className="px-4 py-2 bg-white text-black rounded hover:bg-white/60 cursor-pointer pointer-events-auto transition-colors duration-200"
+          className="md:px-4 px-1 py-0.5 md:py-2 bg-white text-black rounded hover:bg-white/60 cursor-pointer pointer-events-auto transition-colors duration-200"
         >
           CONTACT ME
         </Link>
