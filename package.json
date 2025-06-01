@@ -1,7 +1,18 @@
 {
-  "name": "portfolio-v2",
-  "version": "0.1.0",
+  "name": "m3rk-portfolio",
+  "version": "2.0.0",
   "private": true,
+  "description": "Modern portfolio website showcasing full-stack development projects, UI/UX designs, and graphic design work",
+  "author": "m3rk",
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "framer-motion",
+    "gsap"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
