@@ -19,6 +19,12 @@ export default function ProjectsPage() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const isMobile = useIsMobile();
 
+  // Calculate dynamic counts
+  const systemsCount =
+    SELECTED_PROJECTS.length + PROJECTS.length + ARCHIVES_DATA.length;
+  const uiuxCount = UI_UX_IMAGES.length;
+  const graphicsCount = GRAPHIC_DESIGN_IMAGES.length;
+
   // handlers
   const handleToggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -196,6 +202,9 @@ export default function ProjectsPage() {
         onSectionClick={handleSectionClick}
         isOpen={sidebarOpen}
         isMobile={isMobile}
+        systemsCount={systemsCount}
+        uiuxCount={uiuxCount}
+        graphicsCount={graphicsCount}
       />
 
       {/* Main Content */}

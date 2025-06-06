@@ -20,41 +20,10 @@ interface ProjectsSidebarProps {
   onSectionClick: (sectionId: string) => void;
   isOpen?: boolean;
   isMobile?: boolean;
+  systemsCount?: number;
+  uiuxCount?: number;
+  graphicsCount?: number;
 }
-
-const navigationItems = [
-  {
-    id: "systems",
-    label: "Systems",
-    icon: Globe,
-    description: "Full-stack system applications",
-    color: "blue",
-    count: 9,
-  },
-  {
-    id: "uiux",
-    label: "UI/UX Design",
-    icon: Layers,
-    description: "User interface & experience design",
-    color: "green",
-    count: 4,
-  },
-  {
-    id: "graphics",
-    label: "Graphic Designs",
-    icon: Palette,
-    description: "Visual design & branding",
-    color: "purple",
-    count: 3,
-  },
-];
-
-const stats = [
-  { label: "Total Projects", value: "9", icon: ExternalLink },
-  { label: "Years Active", value: "3+", icon: Calendar },
-  { label: "Tech Stack", value: "15+", icon: Code2 },
-  { label: "Coffee Consumed", value: "∞", icon: Coffee },
-];
 
 const recentWork = [
   { name: "Veripay HRIS", status: "Live", color: "green" },
@@ -91,7 +60,48 @@ export const ProjectsSidebar: React.FC<ProjectsSidebarProps> = ({
   onSectionClick,
   isOpen = false,
   isMobile = false,
+  systemsCount = 0,
+  uiuxCount = 0,
+  graphicsCount = 0,
 }) => {
+  const navigationItems = [
+    {
+      id: "systems",
+      label: "Systems",
+      icon: Globe,
+      description: "Full-stack system applications",
+      color: "blue",
+      count: systemsCount,
+    },
+    {
+      id: "uiux",
+      label: "UI/UX Design",
+      icon: Layers,
+      description: "User interface & experience design",
+      color: "green",
+      count: uiuxCount,
+    },
+    {
+      id: "graphics",
+      label: "Graphic Designs",
+      icon: Palette,
+      description: "Visual design & branding",
+      color: "purple",
+      count: graphicsCount,
+    },
+  ];
+
+  const stats = [
+    {
+      label: "Total Projects",
+      value: (systemsCount + uiuxCount + graphicsCount).toString(),
+      icon: ExternalLink,
+    },
+    { label: "Years Active", value: "3+", icon: Calendar },
+    { label: "Tech Stack", value: "15+", icon: Code2 },
+    { label: "Coffee Consumed", value: "∞", icon: Coffee },
+  ];
+
   return (
     <div
       id="projects-sidebar"

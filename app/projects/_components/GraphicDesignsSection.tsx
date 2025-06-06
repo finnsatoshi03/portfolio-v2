@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Image as ImageIcon, Palette, Layout, Zap, X } from "lucide-react";
 import Image from "next/image";
+import { POSTER_DESIGNS, POST_DESIGNS } from "@/app/_lib/_const/designs";
 
 type StackedImage = {
   id: number;
@@ -225,10 +226,20 @@ export const GraphicDesignsSection: React.FC<GraphicDesignsSectionProps> = ({
   const getDesignsForCategory = (categoryId: string): StackedImage[] => {
     switch (categoryId) {
       case "posters":
-        return designs;
+        return POSTER_DESIGNS;
+      case "posts":
+        return POST_DESIGNS;
       case "logos":
         return [];
       case "branding":
+        return [];
+      case "banners":
+        return [];
+      case "brochures":
+        return [];
+      case "packaging":
+        return [];
+      case "cards":
         return [];
       default:
         return [];
